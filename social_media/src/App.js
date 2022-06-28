@@ -1,12 +1,12 @@
+import { useContext } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
+import AppContext from "./context/appContext";
+import Chat from "./pages/chats/Chats.jsx";
 import Home from "./pages/home/Home.jsx";
 import Login from "./pages/login/Login.jsx";
 import Profile from "./pages/profile/Profile.jsx";
 import Signup from "./pages/signup/Signup.jsx";
-import Chat from "./pages/chats/Chats.jsx"
-import { React, useState, useEffect, useContext } from "react";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import AppContext from "./context/appContext";
 
 function App() {
   const { isAuth } = useContext(AppContext);

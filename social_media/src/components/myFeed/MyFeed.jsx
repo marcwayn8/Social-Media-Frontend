@@ -1,8 +1,7 @@
-import { React, useState, useEffect, useContext } from "react";
-import Share from "../share/Share";
-import MyPosts from "../myPosts/MyPosts.jsx"
-import "./myFeed.css";
+import { useContext, useEffect, useState } from "react";
 import AppContext from "../../context/appContext";
+import MyPosts from "../myPosts/MyPosts.jsx";
+import "./myFeed.css";
 
 export default function MyFeed({ userInfo }) {
   const [allMyPosts, setAllMyPosts] = useState([]);

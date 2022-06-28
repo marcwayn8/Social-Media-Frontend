@@ -1,18 +1,18 @@
-import { React, useEffect, useState } from "react";
-import Comments from "../comments/Comments.jsx";
-import "./post.css";
-import FavoriteBorderTwoToneIcon from "@mui/icons-material/FavoriteBorderTwoTone";
-import { DateTime } from "luxon";
 import DeleteIcon from "@mui/icons-material/Delete";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderTwoToneIcon from "@mui/icons-material/FavoriteBorderTwoTone";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
+import { DateTime } from "luxon";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import AppContext from "../../context/appContext.jsx";
+import Comments from "../comments/Comments.jsx";
+import "./post.css";
 
-export default function Post({ post, posts, setPosts, userInfo }) {
-  const [like, setLike] = useState(post.like_count);
+export default function Post({ post, setPosts, userInfo }) {
+  const { posts, feedMetric, setFeedMetric, user } = useContext(AppContext);
   const [isLiked, setIsLiked] = useState(false);
-  const [isBookmarked, setIsBookmarked] = useState(false);
   const [comments, setComments] = useState([]);
   const [reply, setReply] = useState("");
   const [showComment, setShowComment] = useState(false);
@@ -26,8 +26,26 @@ export default function Post({ post, posts, setPosts, userInfo }) {
       });
   };
 
-  const likeHandler = () => {
-    setLike(isLiked ? Number(like) - 1 : Number(like) + 1);
+  const likeHandler = async () => {
+    if (!isLiked) {
+      feedMetric[post.post_id][1] += 1;
+      await fetch(`http://localhost:9001/posts/${post.post_id}/likes`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ user_id: user.user_id }),
+      });
+    } else {
+      feedMetric[post.post_id][1] -= 1;
+      await fetch(`http://localhost:9001/posts/${post.post_id}/likes`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ user_id: user.user_id }),
+      });
+    }
     setIsLiked(!isLiked);
   };
 
@@ -68,8 +86,13 @@ export default function Post({ post, posts, setPosts, userInfo }) {
     parsed.data[0].username = userInfo.username;
     parsed.data[0].profile_pic = userInfo.profile_pic;
     setComments([...comments, parsed.data[0]]);
+    const map = { ...feedMetric };
+    map[post.post_id][0] += 1;
+    setFeedMetric(map);
     setReply("");
   };
+
+  // [com, likes]
 
   const handleClick = (e) => {
     console.log(post.user_id);
@@ -83,7 +106,6 @@ export default function Post({ post, posts, setPosts, userInfo }) {
             <Link to={`/profile/${post.user_id}`}>
               <img
                 className="postProfileImg"
-                //   src={Users.filter((u) => u.id === post?.userId)[0].profilePicture}
                 src={post.profile_pic}
                 alt=""
                 onClick={handleClick}
@@ -102,42 +124,59 @@ export default function Post({ post, posts, setPosts, userInfo }) {
                 <DeleteIcon type="submit" onClick={handleDelete} />
               </IconButton>
             )}
-            {/* <IconButton aria-label="delete">
-              <BookmarkAddOutlinedIcon onClick={handleBookmark} />
-            </IconButton> */}
           </div>
-          {/* <div className="postTopRight">
-            <BookmarkAddedIcon onClick={handleBookmark} />
-          </div> */}
         </div>
         <div className="postCenter">
           <span className="postText">{post.description}</span>
           <img className="postImg" src={post.upload} alt="" />
           <img className="postImg" src={post.image} alt="" />
-          {/* <img className="postImg" src="https://www.northernbeachesreview.com.au/images/transform/v1/crop/frm/jess.wallace/8b0a371c-1e18-4bd5-bf78-0a4aed88cc6f.jpg/r0_0_7359_4906_w1200_h678_fmax.jpg" alt="" /> */}
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
             <IconButton aria-label="delete">
               {!isLiked ? (
                 <FavoriteBorderTwoToneIcon
-                  htmlColor="#2e7865"
+                  htmlColor="#343a40"
                   className="likeIcon"
                   onClick={likeHandler}
                 />
               ) : (
                 <FavoriteIcon
-                  htmlColor="#2e7865"
+                  htmlColor="#343a40"
                   className="likeIcon"
                   onClick={likeHandler}
                 />
               )}
             </IconButton>
-            <span className="postLikeCounter">{like} likes</span>
+            <span className="postLikeCounter">
+              {feedMetric[post.post_id] && feedMetric[post.post_id][1] > 1 && (
+                <span className="postLikeCounter">
+                  {feedMetric[post.post_id][1]} Likes
+                </span>
+              )}
+              {feedMetric[post.post_id] &&
+                feedMetric[post.post_id][1] === 0 && (
+                  <span className="postLikeCounter">0 Likes</span>
+                )}
+              {feedMetric[post.post_id] &&
+                feedMetric[post.post_id][1] === 1 && (
+                  <span className="postLikeCounter">1 Like</span>
+                )}
+            </span>
           </div>
           <div className="postBottomRight">
             <span className="postCommentText" onClick={handleComments}>
-              {post.comment_count} comments
+              {feedMetric[post.post_id] && feedMetric[post.post_id][0] > 0 && (
+                <span className="postCommentText">
+                  {feedMetric[post.post_id][0]} Comments
+                </span>
+              )}
+              {feedMetric[post.post_id] &&
+                feedMetric[post.post_id][0] === 0 && (
+                  <span className="postCommentText">
+                    Be the first to comment
+                  </span>
+                )}
             </span>
           </div>
         </div>
@@ -150,6 +189,7 @@ export default function Post({ post, posts, setPosts, userInfo }) {
                   allComments={c}
                   aComment={comments}
                   setComments={setComments}
+                  post={post}
                 />
               ))}
               <div className="commenting">

@@ -1,20 +1,16 @@
-import { React, useContext, useState } from "react";
-import "./topbar.css";
-import Box from "@mui/material/Box";
-import Avatar from "@mui/material/Avatar";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
 import Logout from "@mui/icons-material/Logout";
 import Search from "@mui/icons-material/Search";
-import Person from "@mui/icons-material/Person";
-import Notifications from "@mui/icons-material/Notifications";
-import { Link, useNavigate } from "react-router-dom";
-import AppContext from "../../context/appContext";
-import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import Tooltip from "@mui/material/Tooltip";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import AppContext from "../../context/appContext";
+import "./topbar.css";
 
 export default function Topbar() {
   const { user, isAuth, setIsAuth, setUser } = useContext(AppContext);

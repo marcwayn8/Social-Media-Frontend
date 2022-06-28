@@ -1,9 +1,9 @@
-import { React, useEffect, useState, useContext } from "react";
-import "./sidebar.css";
-import CloseFriend from "../closeFriend/CloseFriend";
+import { Bookmark, HelpOutline, RssFeed } from "@mui/icons-material";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AppContext from "../../context/appContext";
-import { RssFeed, Bookmark, HelpOutline } from "@mui/icons-material";
+import CloseFriend from "../closeFriend/CloseFriend";
+import "./sidebar.css";
 
 export default function Sidebar() {
   const [friends, setFriends] = useState([]);
@@ -19,10 +19,12 @@ export default function Sidebar() {
     <div className="sidebar">
       <div className="sidebarWrapper">
         <ul className="sidebarList">
+        <Link className="sideBarLinks" to={'/'}>
           <li className="sidebarListItem">
             <RssFeed className="sidebarIcon" />
             <span className="sidebarListItemText">Feed</span>
           </li>
+          </Link>
           <li className="sidebarListItem">
             <Bookmark className="sidebarIcon" />
             <span className="sidebarListItemText">Bookmarks</span>

@@ -13,6 +13,8 @@
 
 .upload-button {
   max-height: 38px;
+  background-color: #343a40;
+  color: white;
 }
 
 .shareTop {

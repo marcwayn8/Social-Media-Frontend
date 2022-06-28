@@ -1,17 +1,24 @@
-import { React, useEffect, useState } from "react";
-import "./myPosts.css";
-import FavoriteBorderTwoToneIcon from "@mui/icons-material/FavoriteBorderTwoTone";
-import { DateTime } from "luxon";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Comments from "../comments/Comments.jsx";
-import IconButton from "@mui/material/IconButton";
-import Button from "@mui/material/Button";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderTwoToneIcon from "@mui/icons-material/FavoriteBorderTwoTone";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import { DateTime } from "luxon";
+import { useContext, useState } from "react";
+import AppContext from "../../context/appContext.jsx";
+import Comments from "../comments/Comments.jsx";
+import "./myPosts.css";
 
-export default function MyPosts({ post, posts, setPosts, setAllMyPosts, userInfo, allMyPosts}) {
-  const [like, setLike] = useState(post.like_count);
+export default function MyPosts({
+  post,
+  posts,
+  setPosts,
+  setAllMyPosts,
+  userInfo,
+  allMyPosts,
+}) {
+  const { feedMetric, user, setFeedMetric } = useContext(AppContext);
   const [isLiked, setIsLiked] = useState(false);
-  const [isBookmarked, setIsBookmarked] = useState(false);
   const [comments, setComments] = useState([]);
   const [reply, setReply] = useState("");
   const [showComment, setShowComment] = useState(false);
@@ -25,8 +32,26 @@ export default function MyPosts({ post, posts, setPosts, setAllMyPosts, userInfo
       });
   };
 
-  const likeHandler = () => {
-    setLike(isLiked ? Number(like) - 1 : Number(like) + 1);
+  const likeHandler = async () => {
+    if (!isLiked) {
+      feedMetric[post.post_id][1] += 1;
+      await fetch(`http://localhost:9001/posts/${post.post_id}/likes`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ user_id: user.user_id }),
+      });
+    } else {
+      feedMetric[post.post_id][1] -= 1;
+      await fetch(`http://localhost:9001/posts/${post.post_id}/likes`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ user_id: user.user_id }),
+      });
+    }
     setIsLiked(!isLiked);
   };
 
@@ -40,7 +65,7 @@ export default function MyPosts({ post, posts, setPosts, setAllMyPosts, userInfo
       });
       const filtered = posts.filter((p) => p.post_id != post.post_id);
       setPosts(filtered);
-      setAllMyPosts(allMyPosts.filter((p) => p.post_id != post.post_id))
+      setAllMyPosts(allMyPosts.filter((p) => p.post_id != post.post_id));
     } catch (error) {
       console.log(error);
     }
@@ -69,6 +94,9 @@ export default function MyPosts({ post, posts, setPosts, setAllMyPosts, userInfo
     parsed.data[0].username = userInfo.username;
     parsed.data[0].profile_pic = userInfo.profile_pic;
     setComments([...comments, parsed.data[0]]);
+    const map = { ...feedMetric };
+    map[post.post_id][0] += 1;
+    setFeedMetric(map);
     setReply("");
   };
 
@@ -77,55 +105,71 @@ export default function MyPosts({ post, posts, setPosts, setAllMyPosts, userInfo
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <img
-              className="postProfileImg"
-              src={post.profile_pic}
-              alt=""
-            />
+            <img className="postProfileImg" src={post.profile_pic} alt="" />
             <span className="postUsername">{post.username}</span>
             <span className="postDate">
               {DateTime.fromISO(post.time_posted).toRelative()}
             </span>
           </div>
           <div className="postTopRight">
-          {post.user_id === userInfo.user_id && (
+            {post.user_id === userInfo.user_id && (
               <IconButton aria-label="delete">
-              <DeleteIcon type="submit" onClick={handleDelete} />
-            </IconButton>
+                <DeleteIcon type="submit" onClick={handleDelete} />
+              </IconButton>
             )}
           </div>
-          {/* <div className="postTopRight">
-            <BookmarkAddedIcon onClick={handleBookmark} />
-          </div> */}
         </div>
         <div className="postCenter">
           <span className="postText">{post.description}</span>
           <img className="postImg" src={post.upload} alt="" />
           <img className="postImg" src={post.image} alt="" />
-          {/* <img className="postImg" src="https://www.northernbeachesreview.com.au/images/transform/v1/crop/frm/jess.wallace/8b0a371c-1e18-4bd5-bf78-0a4aed88cc6f.jpg/r0_0_7359_4906_w1200_h678_fmax.jpg" alt="" /> */}
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
             <IconButton aria-label="delete">
-            {!isLiked ? (
+              {!isLiked ? (
                 <FavoriteBorderTwoToneIcon
-                  htmlColor="#2e7865"
+                  htmlColor="#343a40"
                   className="likeIcon"
                   onClick={likeHandler}
                 />
               ) : (
                 <FavoriteIcon
-                  htmlColor="#2e7865"
+                  htmlColor="#343a40"
                   className="likeIcon"
                   onClick={likeHandler}
                 />
               )}
             </IconButton>
-            <span className="postLikeCounter">{like} likes</span>
+            <span className="postLikeCounter">
+              {feedMetric[post.post_id] && feedMetric[post.post_id][1] > 1 && (
+                <span className="postLikeCounter">
+                  {feedMetric[post.post_id][1]} Likes
+                </span>
+              )}
+              {feedMetric[post.post_id] &&
+                feedMetric[post.post_id][1] === 0 && (
+                  <span className="postLikeCounter">0 Likes</span>
+                )}
+              {feedMetric[post.post_id] &&
+                feedMetric[post.post_id][1] === 1 && (
+                  <span className="postLikeCounter">1 Like</span>
+                )}
+            </span>
           </div>
           <div className="postBottomRight">
             <span className="postCommentText" onClick={handleComments}>
-              {post.comment_count} comments
+              {feedMetric[post.post_id] && feedMetric[post.post_id][0] > 0 && (
+                <span className="postCommentText">
+                  {feedMetric[post.post_id][0]} Comments
+                </span>
+              )}
+              {feedMetric[post.post_id] &&
+                feedMetric[post.post_id][0] === 0 && (
+                  <span className="postCommentText">
+                    Be the first to comment
+                  </span>
+                )}
             </span>
           </div>
         </div>
@@ -138,6 +182,7 @@ export default function MyPosts({ post, posts, setPosts, setAllMyPosts, userInfo
                   allComments={c}
                   aComment={comments}
                   setComments={setComments}
+                  post={post}
                 />
               ))}
               <div className="commenting">

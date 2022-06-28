@@ -1,11 +1,11 @@
-import { React, useContext, useEffect } from "react";
-import Topbar from "../../components/topbar/Topbar.jsx";
-import Sidebar from "../../components/sidebar/Sidebar.jsx";
+import { useContext, useEffect } from "react";
+import { Navigate } from "react-router-dom";
 import Feed from "../../components/feed/Feed.jsx";
 import Rightbar from "../../components/rightbar/Rightbar.jsx";
-import "./home.css";
+import Sidebar from "../../components/sidebar/Sidebar.jsx";
+import Topbar from "../../components/topbar/Topbar.jsx";
 import AppContext from "../../context/appContext.jsx";
-import { Navigate, useNavigate } from "react-router-dom";
+import "./home.css";
 
 export default function Home() {
   const { user, setUser, setPosts, isAuth } = useContext(AppContext);

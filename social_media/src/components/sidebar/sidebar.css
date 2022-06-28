@@ -40,6 +40,9 @@
   margin-right: 15px;
 }
 
+.sidebarIcon:hover {
+}
+
 .sidebarButton {
   width: 150px;
   border: none;
@@ -76,4 +79,13 @@
     border-radius: 5px;
     font-weight: 500;
   }
+}
+
+.sideBarLinks {
+  color: black;
+  text-decoration: none;
+}
+
+.sideBarLinks:hover {
+  color: #343a40
 }

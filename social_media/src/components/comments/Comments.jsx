@@ -1,19 +1,19 @@
-import { React, useState, useContext } from "react";
-import { DateTime } from "luxon";
-import "./comments.css";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Avatar from "@mui/material/Avatar";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import Divider from "@mui/material/Divider";
-import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
+import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
-import DeleteIcon from "@mui/icons-material/Delete";
-import IconButton from "@mui/material/IconButton";
+import { DateTime } from "luxon";
+import { useContext } from "react";
 import AppContext from "../../context/appContext";
+import "./comments.css";
 
-export default function Comments({ allComments, aComment, setComments }) {
-  const { user } = useContext(AppContext)
+export default function Comments({ allComments, aComment, setComments, post }) {
+  const { user, setFeedMetric, feedMetric } = useContext(AppContext)
 
   const handleDelete = async (e) => {
     try {
@@ -26,6 +26,9 @@ export default function Comments({ allComments, aComment, setComments }) {
       const filtered = aComment.filter(
         (c) => c.comment_id != allComments.comment_id
       );
+      const map = {...feedMetric}
+      map[post.post_id][0] -= 1
+      setFeedMetric(map)
       setComments(filtered);
     } catch (error) {
       console.log(error);

@@ -1,13 +1,13 @@
-import { React, useState, useContext } from "react";
-import "./share.css";
-import SendSharpIcon from "@mui/icons-material/SendSharp";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import IconButton from "@mui/material/IconButton";
+import { useContext, useState } from "react";
 import ImageUploading from "react-images-uploading";
 import AppContext from "../../context/appContext";
+import { FiSend } from "react-icons/fi";
+import "./share.css";
 
 export default function Share(props) {
-  const { user, setPosts, posts } = useContext(AppContext);
+  const { user, setPosts, posts, feedMetric, setFeedMetric } = useContext(AppContext);
   const [image, setImage] = useState("");
   const [images, setImages] = useState([]);
   const [input, setInput] = useState("");
@@ -25,7 +25,7 @@ export default function Share(props) {
   };
 
   async function createPost(e) {
-    e.preventDefault()
+    e.preventDefault();
     if (input === "") return;
     if (image === "") setImage("");
 
@@ -49,8 +49,11 @@ export default function Share(props) {
     parsed.data[0].username = user.username;
     parsed.data[0].profile_pic = user.profile_pic;
     setPosts([parsed.data[0], ...posts]);
+    const map = { ...feedMetric };
+    map[parsed.data[0].post_id] = [0, 0];
+    setFeedMetric(map);
     setInput("");
-  };
+  }
 
   const handleInputChange = (e) => {
     setInput(e.target.value);
@@ -71,7 +74,7 @@ export default function Share(props) {
           />
           <input
             value={input}
-            placeholder="What's on your mind?"
+            placeholder={`What's on your mind ${user.username}?`}
             className="shareInput"
             onChange={handleInputChange}
           />
@@ -106,7 +109,7 @@ export default function Share(props) {
                         style={isDragging ? { color: "red" } : null}
                         onClick={onImageUpload}
                         {...dragProps}
-                        className="me-1 btn btn-success mt-2 upload-button"
+                        className="me-1 btn mt-2 upload-button"
                       >
                         <PhotoCameraIcon
                           htmlColor="whitesmoke"
@@ -171,10 +174,26 @@ export default function Share(props) {
               <span className="shareOptionText">Feelings</span>
             </div> */}
           </div>
+
+          {/* <IconButton aria-label="delete">
+              {!isLiked ? (
+                <FavoriteBorderTwoToneIcon
+                  htmlColor="#343a40"
+                  className="likeIcon"
+                  onClick={likeHandler}
+                />
+              ) : (
+                <FavoriteIcon
+                  htmlColor="#343a40"
+                  className="likeIcon"
+                  onClick={likeHandler}
+                />
+              )}
+            </IconButton> */}
           <IconButton aria-label="delete" className="addPost">
-            <SendSharpIcon
+            <FiSend
               className="shareButton"
-              htmlColor="#2e7865"
+              color="#343a40"
               onClick={createPost}
             />
           </IconButton>

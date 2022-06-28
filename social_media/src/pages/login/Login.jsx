@@ -1,7 +1,7 @@
-import { React, useState, useContext } from "react";
-import { useNavigate, NavLink } from "react-router-dom";
-import "./login.css";
+import { useContext, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import AppContext from "../../context/appContext";
+import "./login.css";
 
 export default function Login({ setAuth }) {
   const { setUser, setIsAuth, isAuth } = useContext(AppContext);

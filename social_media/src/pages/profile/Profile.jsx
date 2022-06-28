@@ -1,14 +1,14 @@
-import { React, useContext, useEffect, useState, useRef } from "react";
-import { useParams, Navigate } from "react-router-dom";
-import "./profile.css";
-import Topbar from "../../components/topbar/Topbar";
-import Sidebar from "../../components/sidebar/Sidebar";
-import Rightbar from "../../components/rightbar/Rightbar";
-import MyFeed from "../../components/myFeed/MyFeed";
 import "bootstrap/dist/css/bootstrap.css";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import MyFeed from "../../components/myFeed/MyFeed";
+import Rightbar from "../../components/rightbar/Rightbar";
+import Sidebar from "../../components/sidebar/Sidebar";
+import Topbar from "../../components/topbar/Topbar";
+import "./profile.css";
 
 export default function Profile() {
-  const [userInfo, setUserInfo, isAuth] = useState({});
+  const [userInfo, setUserInfo] = useState({});
   const { id } = useParams();
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export default function Profile() {
 
   return (
     <>
-      <Topbar/>
+      <Topbar />
       <div className="profile">
         <Sidebar />
         <div className="profileRight">
@@ -43,12 +43,12 @@ export default function Profile() {
             </div>
             <div className="profileInfo">
               <h4 className="profileInfoName">{userInfo.username}</h4>
-              <span className="profileInfoDesc">{userInfo.about}</span>
+              <span className="profileInfoDesc">{userInfo.intro}</span>
             </div>
           </div>
           <div className="profileRightBottom">
             <MyFeed userInfo={userInfo} />
-            <Rightbar profile userInfo={userInfo} />
+            <Rightbar profile userInfo={userInfo} setUserInfo={setUserInfo} />
           </div>
         </div>
       </div>

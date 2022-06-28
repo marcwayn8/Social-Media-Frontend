@@ -1,22 +1,17 @@
-import { React, useState, useEffect, useContext } from "react";
-import "./rightbar.css";
-import Online from "../online/Online";
-import LocalFloristIcon from "@mui/icons-material/LocalFlorist";
-import EditIcon from "@mui/icons-material/Edit";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
+import EditIcon from "@mui/icons-material/Edit";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/js/bootstrap.min.js";
+import { useContext, useEffect, useState } from "react";
+import { BiWorld } from "react-icons/bi";
 import AppContext from "../../context/appContext";
-import { useParams } from "react-router-dom";
-import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-
-import { BiWorld } from 'react-icons/bi';
+import "./rightbar.css";
 
 export default function Rightbar({ profile, userInfo, setUserInfo }) {
   const [friends, setFriends] = useState([]);
-  const { user } = useContext(AppContext);
-
-  let { userId } = useParams();
+  const { user, setUser } = useContext(AppContext);
 
   useEffect(() => {
     fetch(`http://localhost:9001/users/${user.user_id}/friends`)
@@ -28,9 +23,9 @@ export default function Rightbar({ profile, userInfo, setUserInfo }) {
     return (
       <>
         <div className="birthdayContainer">
-          < BiWorld  className="birthdayImg"/> {" "}
+          <BiWorld className="birthdayImg" />{" "}
           <span className="birthdayText">
-            <b>Share</b> your <b>experiences</b> with others!
+            <b>Share</b> the <b>world</b> with others!
           </span>
         </div>
         <img
@@ -38,46 +33,36 @@ export default function Rightbar({ profile, userInfo, setUserInfo }) {
           src="https://content.api.news/v3/images/bin/4491bf978b849ce0b2f54b196c81cbd9"
           alt=""
         />
-        <div className="cover">
-
-        </div>
-        {/* <h4 className="rightbarTitle">Online Friends</h4>
-        <ul className="rightbarFriendList">
-          {friends.length > 0 && friends.map((u) => (
-            <Online key={u.user_id} user={u} />
-          ))}
-        </ul> */}
+        <div className="cover"></div>
       </>
     );
   };
 
   const ProfileRightbar = () => {
-    const [bio, setBio] = useState("");
+    const [intro, setIntro] = useState("");
     const [city, setCity] = useState("");
     const [country, setCountry] = useState("");
-    const [longer_bio, setLonger_bio] = useState("");
+    const [bio, setBio] = useState("");
 
     const handleNewInfo = async (e) => {
-      if (bio === "" && city === "" && country === "" && longer_bio === "")
-        return;
+      if (intro === "" && city === "" && country === "" && bio === "") return;
 
       const newUserInfo = {
         username: user.username,
         profile_pic: user.profile_pic,
         cover_pic: user.cover_pic,
+        intro,
         bio,
         city,
         country,
-        longer_bio,
       };
 
-      if (newUserInfo.bio === "") newUserInfo.bio = userInfo.bio;
-      if (newUserInfo.city === "") newUserInfo.city = userInfo.city;
-      if (newUserInfo.country === "") newUserInfo.country = userInfo.country;
-      if (newUserInfo.longer_bio === "")
-        newUserInfo.longer_bio = userInfo.longer_bio;
+      if (newUserInfo.intro === "") newUserInfo.intro = user.intro;
+      if (newUserInfo.city === "") newUserInfo.city = user.city;
+      if (newUserInfo.country === "") newUserInfo.country = user.country;
+      if (newUserInfo.bio === "") newUserInfo.bio = user.bio;
 
-      await fetch(`http://localhost:9001/profile/${user.user_id}`, {
+      await fetch(`http://localhost:9001/profile/${user.user_id}/bio`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -85,22 +70,23 @@ export default function Rightbar({ profile, userInfo, setUserInfo }) {
         body: JSON.stringify(newUserInfo),
       });
 
-      setUserInfo({
-        ...userInfo,
-        ...newUserInfo,
-      });
-      setBio("");
+      setUser(newUserInfo);
+      // setUser({
+      //   ...userInfo,
+      //   ...newUserInfo,
+      // });
+      setIntro("");
       setCity("");
       setCountry("");
-      setLonger_bio("");
+      setBio("");
     };
 
     const handleFriend = async (e) => {
       e.preventDefault();
       const data = {
-        user_id: user.user_id, 
-        friend_two: userInfo.user_id
-      }
+        user_id: user.user_id,
+        friend_two: userInfo.user_id,
+      };
       await fetch(`http://localhost:9001/users/${user.user_id}/friends`, {
         method: "POST",
         headers: {
@@ -113,126 +99,136 @@ export default function Rightbar({ profile, userInfo, setUserInfo }) {
     return (
       <>
         <h4 className="rightbarTitle">
-        User information {/* {userInfo.user_id === profile.user_id && ( */}
+          User information {/* {userInfo.user_id === profile.user_id && ( */}
           {/* {user.user_id !== userInfo.user_id && (!friends.includes(userInfo.user_id)) && (
             <PersonAddIcon className="add_friend" onClick={handleFriend} />
           )} */}
-          {user.user_id !== userInfo.user_id && (!friends.some(f => f.user_id === userInfo.user_id)) && (
-            <PersonAddIcon className="add_friend" onClick={handleFriend} />
-          )}
-
+          {user.user_id !== userInfo.user_id &&
+            !friends.some((f) => f.user_id === userInfo.user_id) && (
+              <PersonAddIcon className="add_friend" onClick={handleFriend} />
+            )}
           {/* )} */}
           {user.user_id == userInfo.user_id && (
-            <EditIcon
-              className="edit"
-              type="button"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
-            />
-          )}
-          <div
-            className="modal fade"
-            id="exampleModal"
-            tabIndex="-1"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-          >
-            <div className="modal-dialog">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h5 className="modal-title" id="exampleModalLabel">
-                    Edit Info
-                  </h5>
-                </div>
-                <div className="modal-body">
-                  <div className="row g-3 align-items-center mt-3">
-                    <div className="col-auto">
-                      <label
-                        htmlFor="inputPassword6"
-                        className="col-form-label"
-                      >
-                        Bio
-                      </label>
+            <>
+              <button
+                type="button"
+                class="btn"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+              >
+                <EditIcon className="edit" />
+              </button>
+              <div
+                class="modal fade"
+                id="exampleModal"
+                tabindex="-1"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">
+                        Edit Profile
+                      </h5>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
                     </div>
-                    <div className="col-auto">
-                      <input
-                        type="text"
-                        id="inputPassword6"
-                        className="form-control"
-                        aria-describedby="passwordHelpInline"
-                        onChange={(e) => setBio(e.target.value)}
+                    <div class="modal-body">
+                      <div className="row g-3 align-items-center mt-3">
+                        <div className="col-auto">
+                          <label
+                            htmlFor="inputPassword6"
+                            className="col-form-label"
+                          >
+                            Intro
+                          </label>
+                        </div>
+                        <div className="col-auto">
+                          <input
+                            type="text"
+                            id="inputPassword6"
+                            className="form-control"
+                            aria-describedby="passwordHelpInline"
+                            onChange={(e) => setIntro(e.target.value)}
+                          />
+                        </div>
+                      </div>
+                      <div className="row g-3 align-items-center mt-3">
+                        <div className="col-auto">
+                          <label
+                            htmlFor="inputPassword6"
+                            className="col-form-label"
+                          >
+                            City
+                          </label>
+                        </div>
+                        <div className="col-auto">
+                          <input
+                            type="text"
+                            id="inputPassword6"
+                            className="form-control"
+                            aria-describedby="passwordHelpInline"
+                            onChange={(e) => setCity(e.target.value)}
+                          />
+                        </div>
+                      </div>
+                      <div className="row g-3 align-items-center mt-3">
+                        <div className="col-auto">
+                          <label
+                            htmlFor="inputPassword6"
+                            className="col-form-label"
+                          >
+                            Country
+                          </label>
+                        </div>
+                        <div className="col-auto">
+                          <input
+                            type="text"
+                            id="inputPassword6"
+                            className="form-control"
+                            aria-describedby="passwordHelpInline"
+                            onChange={(e) => setCountry(e.target.value)}
+                          />
+                        </div>
+                      </div>
+                      <div className="row g-3 align-items-center mt-3 mb-3">
+                        <div className="col-auto">
+                          <label
+                            htmlFor="inputPassword6"
+                            className="col-form-label"
+                          >
+                            Bio
+                          </label>
+                        </div>
+                        <div className="col-auto">
+                          <input
+                            type="text"
+                            id="inputPassword6"
+                            className="form-control"
+                            aria-describedby="passwordHelpInline"
+                            onChange={(e) => setBio(e.target.value)}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <CloseIcon data-bs-dismiss="modal" type="button" />
+                      <CheckIcon
+                        type="submit"
+                        onClick={handleNewInfo}
+                        data-bs-dismiss="modal"
                       />
                     </div>
                   </div>
-                  <div className="row g-3 align-items-center mt-3">
-                    <div className="col-auto">
-                      <label
-                        htmlFor="inputPassword6"
-                        className="col-form-label"
-                      >
-                        City
-                      </label>
-                    </div>
-                    <div className="col-auto">
-                      <input
-                        type="text"
-                        id="inputPassword6"
-                        className="form-control"
-                        aria-describedby="passwordHelpInline"
-                        onChange={(e) => setCity(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className="row g-3 align-items-center mt-3">
-                    <div className="col-auto">
-                      <label
-                        htmlFor="inputPassword6"
-                        className="col-form-label"
-                      >
-                        Country
-                      </label>
-                    </div>
-                    <div className="col-auto">
-                      <input
-                        type="text"
-                        id="inputPassword6"
-                        className="form-control"
-                        aria-describedby="passwordHelpInline"
-                        onChange={(e) => setCountry(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className="row g-3 align-items-center mt-3 mb-3">
-                    <div className="col-auto">
-                      <label
-                        htmlFor="inputPassword6"
-                        className="col-form-label"
-                      >
-                        Extended Bio
-                      </label>
-                    </div>
-                    <div className="col-auto">
-                      <input
-                        type="text"
-                        id="inputPassword6"
-                        className="form-control"
-                        aria-describedby="passwordHelpInline"
-                        onChange={(e) => setLonger_bio(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="modal-footer">
-                  <CloseIcon data-bs-dismiss="modal" type="button" />
-                  <CheckIcon
-                    type="submit"
-                    onClick={handleNewInfo}
-                    data-bs-dismiss="modal"
-                  />
                 </div>
               </div>
-            </div>
-          </div>
+            </>
+          )}
         </h4>
         <div className="rightbarInfo">
           <div className="rightbarInfoItem">

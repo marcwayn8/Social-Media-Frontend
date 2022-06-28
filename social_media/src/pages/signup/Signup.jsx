@@ -1,7 +1,7 @@
-import { React, useState } from "react";
-import { useNavigate, NavLink } from "react-router-dom";
+import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 // import "./signup.css";
-import "../login/login.css"
+import "../login/login.css";
 
 export default function Signup() {
   const navigate = useNavigate();

@@ -32,12 +32,10 @@ export default function CloseFriend({
   return (
     <li className="sidebarFriend">
       <div>
-        <img className="sidebarFriendImg" src={friend.profile_pic} alt="" />
-        <span className="sidebarFriendName">
-          <Link className="friendLinks" to={`/profile/${friend.user_id}`}>
-            {friend.username}
-          </Link>
-        </span>{" "}
+        <Link className="friendLinks" to={`/profile/${friend.user_id}`}>
+          <img className="sidebarFriendImg" src={friend.profile_pic} alt=""/>
+          <span className="sidebarFriendName">{friend.username}</span>{" "}
+        </Link>
       </div>
       <Link className="message-icon" to={`/chat/${friend.user_id}`}>
         <div className="message-icon">

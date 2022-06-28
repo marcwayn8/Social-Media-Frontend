@@ -1,8 +1,8 @@
-import { React, useState, useEffect, useContext } from "react";
-import "./feed.css";
-import Share from "../share/Share.jsx";
-import Post from "../post/Post.jsx";
+import { useContext } from "react";
 import AppContext from "../../context/appContext";
+import Post from "../post/Post.jsx";
+import Share from "../share/Share.jsx";
+import "./feed.css";
 
 export default function Feed({ userInfo }) {
   const { user, setPosts, posts } = useContext(AppContext);
