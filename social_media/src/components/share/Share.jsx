@@ -1,12 +1,12 @@
-import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import IconButton from "@mui/material/IconButton";
 import { useContext, useState } from "react";
+import { BiImageAdd } from "react-icons/bi";
+import { IoMdSend } from "react-icons/io";
 import ImageUploading from "react-images-uploading";
 import AppContext from "../../context/appContext";
-import { FiSend } from "react-icons/fi";
 import "./share.css";
 
-export default function Share(props) {
+export default function Share() {
   const { user, setPosts, posts, feedMetric, setFeedMetric } = useContext(AppContext);
   const [image, setImage] = useState("");
   const [images, setImages] = useState([]);
@@ -17,11 +17,6 @@ export default function Share(props) {
   const onChange = (imageList, addUpdateIndex) => {
     setImages(imageList);
     setImage(imageList[0].data_url);
-  };
-
-  const handleImage = async (e) => {
-    e.preventDefault();
-    setImage(images[0].data_url);
   };
 
   async function createPost(e) {
@@ -59,10 +54,6 @@ export default function Share(props) {
     setInput(e.target.value);
   };
 
-  const handleHashtagClick = (e) => {
-    setHashtag(e.target.value);
-  };
-
   return (
     <div className="share">
       <div className="shareWrapper">
@@ -83,10 +74,6 @@ export default function Share(props) {
         <div className="shareBottom">
           <div className="shareOptions">
             <div className="shareOption">
-              {/* <PermMedia htmlColor="tomato" className="shareIcon" /> */}
-              {/* <IconButton aria-label="delete">
-                <PhotoCameraIcon htmlColor="#2e7865" className="shareIcon" />
-              </IconButton> */}
               <div>
                 <ImageUploading
                   value={images}
@@ -97,13 +84,10 @@ export default function Share(props) {
                   {({
                     imageList,
                     onImageUpload,
-                    onImageRemoveAll,
-                    onImageUpdate,
                     onImageRemove,
                     isDragging,
                     dragProps,
                   }) => (
-                    // write your building UI
                     <div className="upload__image-wrapper d-flex">
                       <button
                         style={isDragging ? { color: "red" } : null}
@@ -111,7 +95,7 @@ export default function Share(props) {
                         {...dragProps}
                         className="me-1 btn mt-2 upload-button"
                       >
-                        <PhotoCameraIcon
+                        <BiImageAdd
                           htmlColor="whitesmoke"
                           className="shareIcon"
                         />
@@ -121,7 +105,6 @@ export default function Share(props) {
                       {imageList.map((image, index) => (
                         <div key={index} className="image-item d-flex mt-2">
                           <p className="mx-1 mt-2">{image.file.name}</p>
-                          {/* <img src="" alt={image.file.name} width="100" /> */}
                           <div className="image-item__btn-wrapper">
                             <button
                               className="mx-1 btn btn-danger"
@@ -129,9 +112,6 @@ export default function Share(props) {
                             >
                               Remove
                             </button>
-                            {/* <button className="mx-1 btn btn-primary" type="submit" onClick={handleImage}>
-                              Confirm
-                            </button> */}
                           </div>
                         </div>
                       ))}
@@ -140,58 +120,9 @@ export default function Share(props) {
                 </ImageUploading>
               </div>
             </div>
-            {/* <div className="shareOption">
-              <div className="dropdown">
-                <IconButton aria-label="delete">
-                  <TagIcon htmlColor="#2e7865" className="shareIcon" />
-                </IconButton>
-                <span className="shareOptionText">Tag</span>
-                <div className="dropdown-content">
-                  <option value="Green" onClick={handleHashtagClick}>
-                    Green
-                  </option>
-                  <option value="Love" onClick={handleHashtagClick}>
-                    Love
-                  </option>
-                  <option value="Hope" onClick={handleHashtagClick}>
-                    Hope
-                  </option>
-                  <option value="Grateful" onClick={handleHashtagClick}>
-                    Grateful
-                  </option>
-                  <option value="Garden" onClick={handleHashtagClick}>
-                    Gardens
-                  </option>
-                </div>
-              </div>
-            </div> */}
-            {/* <div className="shareOption">
-              <Room htmlColor="green" className="shareIcon" />
-              <span className="shareOptionText">Location</span>
-            </div>
-            <div className="shareOption">
-              <EmojiEmotions htmlColor="goldenrod" className="shareIcon" />
-              <span className="shareOptionText">Feelings</span>
-            </div> */}
           </div>
-
-          {/* <IconButton aria-label="delete">
-              {!isLiked ? (
-                <FavoriteBorderTwoToneIcon
-                  htmlColor="#343a40"
-                  className="likeIcon"
-                  onClick={likeHandler}
-                />
-              ) : (
-                <FavoriteIcon
-                  htmlColor="#343a40"
-                  className="likeIcon"
-                  onClick={likeHandler}
-                />
-              )}
-            </IconButton> */}
           <IconButton aria-label="delete" className="addPost">
-            <FiSend
+            <IoMdSend
               className="shareButton"
               color="#343a40"
               onClick={createPost}

@@ -4,8 +4,9 @@
   border-radius: 10px;
   -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
   box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
-  margin-top: 10px
+  margin-top: 10px;
 }
+
 
 .shareWrapper {
   padding: 10px;
@@ -15,6 +16,10 @@
   max-height: 38px;
   background-color: #343a40;
   color: white;
+}
+
+.upload-button:hover {
+  color: #cfd6dd
 }
 
 .shareTop {
@@ -33,6 +38,7 @@
 .shareInput {
   border: none;
   width: 80%;
+  font-size: 17px;
 }
 
 .shareInput:focus {
@@ -41,8 +47,9 @@
 
 .shareHr {
   margin: 20px;
-  margin-bottom: -0px;
+  margin-bottom: 7px;
   margin-right: 10px;
+  margin-top: 10px;
 }
 
 .shareBottom {
@@ -123,7 +130,6 @@
 .addPost {
   margin-right: 10px;
 }
-
 
 @media only screen and (max-width: 425px) {
   .shareWrapper {

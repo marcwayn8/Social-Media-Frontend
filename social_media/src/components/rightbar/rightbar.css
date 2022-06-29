@@ -2,40 +2,28 @@
   flex: 3.5;
 }
 
-/* .map {
-  border: 5px solid #2e7865;
-} */
-
 .rightbarWrapper {
   padding: 20px 20px 0 0;
 }
 
-/* .cover {
-  height: 100px;
-  width: 300px;
-  color: #2e7865;
-} */
-
-.birthdayContainer {
+.right-side-container {
   display: flex;
   align-items: center;
+  margin-top: 7px;
 }
 
-.birthdayImg {
+.world {
   width: 20px;
   height: 20px;
   margin-right: 3px;
-}
-
-.birthdayText {
-  font-weight: 300;
-  font-size: 17px;
+  color: #343a40;
 }
 
 .rightbarAd {
   width: 100%;
   border-radius: 10px;
   margin: 30px 0;
+  margin-top: 15px
 }
 
 .rightbarTitle {

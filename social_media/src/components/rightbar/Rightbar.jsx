@@ -9,7 +9,7 @@ import { BiWorld } from "react-icons/bi";
 import AppContext from "../../context/appContext";
 import "./rightbar.css";
 
-export default function Rightbar({ profile, userInfo, setUserInfo }) {
+export default function Rightbar({ profile, userInfo }) {
   const [friends, setFriends] = useState([]);
   const { user, setUser } = useContext(AppContext);
 
@@ -22,10 +22,10 @@ export default function Rightbar({ profile, userInfo, setUserInfo }) {
   const HomeRightbar = () => {
     return (
       <>
-        <div className="birthdayContainer">
-          <BiWorld className="birthdayImg" />{" "}
-          <span className="birthdayText">
-            <b>Share</b> the <b>world</b> with others!
+        <div className="right-side-container">
+          <BiWorld className="world" />{" "}
+          <span className="intro-text">
+            <b>Share</b> your <b>World</b> with <b>Others</b>!
           </span>
         </div>
         <img
@@ -87,15 +87,20 @@ export default function Rightbar({ profile, userInfo, setUserInfo }) {
         user_id: user.user_id,
         friend_two: userInfo.user_id,
       };
-      await fetch(`http://localhost:9001/users/${user.user_id}/friends`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      try {
+        await fetch(`http://localhost:9001/users/${user.user_id}/friends`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+        setFriends([...friends, userInfo])
+      } catch (err) {
+        console.log(err.message);
+      }
     };
-
+    
     return (
       <>
         <h4 className="rightbarTitle">

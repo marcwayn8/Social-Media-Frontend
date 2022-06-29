@@ -92,28 +92,15 @@ export default function Post({ post, setPosts, userInfo }) {
     setReply("");
   };
 
-  // [com, likes]
-
-  const handleClick = (e) => {
-    console.log(post.user_id);
-  };
-
   return (
     <div className="post">
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
             <Link to={`/profile/${post.user_id}`}>
-              <img
-                className="postProfileImg"
-                src={post.profile_pic}
-                alt=""
-                onClick={handleClick}
-              />
+              <img className="postProfileImg" src={post.profile_pic} alt="" />
             </Link>
-            <span className="postUsername" onClick={handleClick}>
-              {post.username}
-            </span>
+            <span className="postUsername">{post.username}</span>
             <span className="postDate">
               {DateTime.fromISO(post.time_posted).toRelative()}
             </span>
@@ -121,7 +108,11 @@ export default function Post({ post, setPosts, userInfo }) {
           <div className="postTopRight">
             {post.user_id === userInfo.user_id && (
               <IconButton aria-label="delete">
-                <DeleteIcon type="submit" onClick={handleDelete} />
+                <DeleteIcon
+                  type="submit"
+                  onClick={handleDelete}
+                  htmlColor="#343a40"
+                />
               </IconButton>
             )}
           </div>

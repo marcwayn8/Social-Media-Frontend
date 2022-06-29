@@ -4,6 +4,7 @@
   -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
   box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
   margin: 30px 0;
+  font-size: 18px;
 }
 
 .postWrapper {
@@ -30,13 +31,13 @@
 }
 
 .postUsername {
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 17px !important;
+  font-weight: 500 !important;
   margin: 0 10px;
 }
 
 .postDate {
-  font-size: 12px;
+  font-size: 14px !important;
 }
 
 .postCenter {
