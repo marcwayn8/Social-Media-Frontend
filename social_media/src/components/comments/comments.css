@@ -1,7 +1,23 @@
 .delete-comment {
     float: right;
+    color: #343a40
 }
 
-/* .comment-body {
-    color: red
-} */
+#dark .delete-comment {
+    color: white
+}
+
+#dark .com-text {
+    color: white !important
+}
+
+#dark .divide {
+    color: white;
+}
+
+.divide {
+    color: #adadad;
+    width: 85%;
+    margin: auto;
+    margin-left: 70px;
+}

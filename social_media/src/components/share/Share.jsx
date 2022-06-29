@@ -124,7 +124,6 @@ export default function Share() {
           <IconButton aria-label="delete" className="addPost">
             <IoMdSend
               className="shareButton"
-              color="#343a40"
               onClick={createPost}
             />
           </IconButton>

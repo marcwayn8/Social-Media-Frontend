@@ -7,6 +7,11 @@ const ContextProvider = (props) => {
   const [isAuth, setIsAuth] = useState(false);
   const [feed, setFeed] = useState([]);
   const [feedMetric, setFeedMetric] = useState({});
+  const [theme, setTheme] = useState("dark");
+
+  const toggleTheme = () => {
+    setTheme((curr) => (curr === "light" ? "dark" : "light"));
+  };
 
   useEffect(() => {
     async function getFeed() {
@@ -27,7 +32,6 @@ const ContextProvider = (props) => {
       const likeData = await likeRes.json();
       for (let like of likeData) {
         if (like.post_id in map) {
-          console.log(like.commentCount)
           map[like.post_id][1] = parseInt(like.likecount);
         } else {
           map[like.post_id] = [0, parseInt(like.likecount)];
@@ -75,6 +79,8 @@ const ContextProvider = (props) => {
     setFeed,
     feedMetric,
     setFeedMetric,
+    theme,
+    toggleTheme
   };
 
   return (

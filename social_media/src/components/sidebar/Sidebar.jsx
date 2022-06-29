@@ -13,7 +13,7 @@ export default function Sidebar() {
     fetch(`http://localhost:9001/users/${user.user_id}/friends`)
       .then((response) => response.json())
       .then((data) => setFriends(data));
-  }, [friends]);
+  }, []);
 
   return (
     <div className="sidebar">

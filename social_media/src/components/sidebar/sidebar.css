@@ -7,6 +7,14 @@
   font-size: 18px;
 }
 
+#dark .sideBarLinks {
+  color: white;
+}
+
+#dark .sidebar {
+  color: white;
+}
+
 .shareInput {
   font-size: 15px;
 }
@@ -39,9 +47,6 @@
 
 .sidebarIcon {
   margin-right: 15px;
-}
-
-.sidebarIcon:hover {
 }
 
 .sidebarButton {
@@ -89,4 +94,18 @@
 
 .sideBarLinks:hover {
   color: #343a40
+}
+
+#dark .sideBarLinks:hover {
+  color: #343a40
+}
+
+.sidebarListItem:hover {
+  color: #343a40;
+  cursor: pointer;
+}
+
+#dark .sidebarListItem:hover {
+  color: #343a40;
+  cursor: pointer;
 }

@@ -7,6 +7,10 @@
   margin-top: 10px;
 }
 
+#dark .share {
+  border: white 1px solid;
+  box-shadow: 0px 0px 15px -8px rgba(255, 255, 255, 0.68);
+}
 
 .shareWrapper {
   padding: 10px;
@@ -41,6 +45,11 @@
   font-size: 17px;
 }
 
+#dark .shareInput {
+  color: white;
+  background-color: black;
+}
+
 .shareInput:focus {
   outline: none;
 }
@@ -50,6 +59,10 @@
   margin-bottom: 7px;
   margin-right: 10px;
   margin-top: 10px;
+}
+
+#dark .shareHr {
+  color: white;
 }
 
 .shareBottom {
@@ -80,8 +93,12 @@
   font-weight: 500;
 }
 
+#dark .shareButton {
+  color: white
+}
+
 .shareButton {
-  /* margin-right: 20px; */
+  color: #343a40;
   cursor: pointer;
 }
 

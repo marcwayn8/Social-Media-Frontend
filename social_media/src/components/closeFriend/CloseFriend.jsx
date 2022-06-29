@@ -1,16 +1,9 @@
-import React from "react";
-import "./closeFriend.css";
-import RemoveIcon from "@mui/icons-material/Remove";
+import IconButton from "@mui/material/IconButton";
 import { BsFillChatLeftDotsFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import IconButton from "@mui/material/IconButton";
+import "./closeFriend.css";
 
-export default function CloseFriend({
-  friend,
-  userInfo,
-  setFriends,
-  allFriends,
-}) {
+export default function CloseFriend({ friend, userInfo }) {
   const removeFriend = async (e) => {
     try {
       const data = {
@@ -31,9 +24,9 @@ export default function CloseFriend({
 
   return (
     <li className="sidebarFriend">
-      <div>
+      <div className="fr-list">
         <Link className="friendLinks" to={`/profile/${friend.user_id}`}>
-          <img className="sidebarFriendImg" src={friend.profile_pic} alt=""/>
+          <img className="sidebarFriendImg" src={friend.profile_pic} alt="" />
           <span className="sidebarFriendName">{friend.username}</span>{" "}
         </Link>
       </div>
@@ -42,7 +35,6 @@ export default function CloseFriend({
           <IconButton aria-label="delete">
             <BsFillChatLeftDotsFill
               className="message-icon"
-              color="#343a40"
               fontSize=".85em"
             />
           </IconButton>

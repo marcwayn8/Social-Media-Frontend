@@ -109,9 +109,9 @@ export default function Post({ post, setPosts, userInfo }) {
             {post.user_id === userInfo.user_id && (
               <IconButton aria-label="delete">
                 <DeleteIcon
+                  className="delete-comment"
                   type="submit"
                   onClick={handleDelete}
-                  htmlColor="#343a40"
                 />
               </IconButton>
             )}
@@ -127,13 +127,11 @@ export default function Post({ post, setPosts, userInfo }) {
             <IconButton aria-label="delete">
               {!isLiked ? (
                 <FavoriteBorderTwoToneIcon
-                  htmlColor="#343a40"
                   className="likeIcon"
                   onClick={likeHandler}
                 />
               ) : (
                 <FavoriteIcon
-                  htmlColor="#343a40"
                   className="likeIcon"
                   onClick={likeHandler}
                 />
@@ -187,12 +185,13 @@ export default function Post({ post, setPosts, userInfo }) {
                 <input
                   className="comment-on-post"
                   value={reply}
+                  placeholder="Comment..."
                   onChange={(e) => setReply(e.target.value)}
                 ></input>
                 <Button
                   className="send"
                   type="submit"
-                  variant="contained"
+                  variant="outlined"
                   color="info"
                   size="small"
                 >

@@ -13,7 +13,8 @@ import AppContext from "../../context/appContext";
 import "./topbar.css";
 
 export default function Topbar() {
-  const { user, isAuth, setIsAuth, setUser } = useContext(AppContext);
+  const { user, setIsAuth, setUser, theme, toggleTheme } =
+    useContext(AppContext);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -42,6 +43,14 @@ export default function Topbar() {
       </div>
       <div className="topbarRight">
         <>
+          <div>
+            <input type="checkbox" class="checkbox" id="chk" onChange={toggleTheme}/>
+            <label class="label" for="chk" >
+              <i class="fas fa-moon"></i>
+              <i class="fas fa-sun"></i>
+              <div class="ball"></div>
+            </label>
+          </div>
           <Box
             sx={{ display: "flex", alignItems: "center", textAlign: "center" }}
           >
@@ -102,7 +111,7 @@ export default function Topbar() {
             </MenuItem>
             <Divider />
             <MenuItem
-            className="profile"
+              className="profile"
               onClick={() => {
                 handleClose();
                 setUser({});

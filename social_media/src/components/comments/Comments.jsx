@@ -46,7 +46,7 @@ export default function Comments({ allComments, aComment, setComments, post }) {
             className="comment-body"
             primary={allComments.comment_body}
             secondary={
-              <>
+              <div className="com-text">
                 <Typography
                   sx={{ display: "inline" }}
                   component="span"
@@ -64,11 +64,12 @@ export default function Comments({ allComments, aComment, setComments, post }) {
                     />
                   </IconButton>
                 )}
-              </>
+              </div>
             }
           />
         </ListItem>
-        <Divider variant="inset" component="li" />
+        <hr className="divide"></hr>
+        {/* <Divider variant="inset" component="li"/> */}
       </List>
     </div>
   );

@@ -8,7 +8,7 @@ import AppContext from "../../context/appContext.jsx";
 import "./home.css";
 
 export default function Home() {
-  const { user, setUser, setPosts, isAuth } = useContext(AppContext);
+  const { user, setUser, setPosts, isAuth, theme } = useContext(AppContext);
 
   useEffect(() => {
     fetch("http://localhost:9001/posts")
@@ -17,13 +17,13 @@ export default function Home() {
   }, []);
 
   return !isAuth ? <Navigate to="/login"/> : (
-    <>
+    <div id={theme}>
       <Topbar />
       <div className="homeContainer">
         <Sidebar />
-        <Feed />
+        <Feed id={theme}/>
         <Rightbar />
       </div>
-    </>
+    </div>
   );
 }

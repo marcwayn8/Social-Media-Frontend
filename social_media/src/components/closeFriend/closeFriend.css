@@ -17,6 +17,10 @@
   justify-content: space-between;
 }
 
+#dark .sidebarFriendName {
+  color: white;
+}
+
 .friendLinks {
   color: black;
   text-decoration: none;
@@ -24,4 +28,12 @@
 
 .friendLinks:hover {
   color: #343a40
+}
+
+.message-icon {
+  color: #343a40;
+}
+
+#dark .message-icon {
+  color: white;
 }
