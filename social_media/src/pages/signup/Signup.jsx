@@ -7,17 +7,17 @@ export default function Signup() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("")
+  const [username, setUsername] = useState("");
 
   const handleSignup = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const userInfo = {
       username: username,
       password: password,
       email: email,
       first_name: "",
-      last_name: ""
-    }
+      last_name: "",
+    };
 
     const result = await fetch("http://localhost:9001/signup", {
       method: "POST",
@@ -34,119 +34,70 @@ export default function Signup() {
     <div className="page">
       <div className="left-side">
       </div>
-
       <div className="right-side">
         <span className="logo">Grateful Gardens</span>
         <div>
-        <span className="tagline">Food justice community</span>
+          <span className="tagline">Food justice community</span>
         </div>
         <div className="pageSwitcherS">
-              <NavLink
-                to="/login"
-                activeClassName="pageSwitcherItem-activeS"
-                className="pageSwitcherItemS"
-              >
-                Sign In
-              </NavLink>
-              <NavLink
-                exact
-                to="/signup"
-                activeClassName="pageSwitcherItem-activeS"
-                className="pageSwitcherItemS"
-              >
-                Sign Up
-              </NavLink>
-         </div>
-              <div className="form-outline">
-               <input
-                type="email"
-                id="form3Example1w"
-                className="form-control"
-                onChange={(e) => setEmail(e.target.value)}
-               />
-               <label className="formLabel" htmlFor="form3Example1w ">
-                 Email
-               </label>
-              </div>
+          <NavLink
+            to="/login"
+            activeClassName="pageSwitcherItem-activeS"
+            className="pageSwitcherItemS"
+          >
+            Sign In
+          </NavLink>
+          <NavLink
+            exact
+            to="/signup"
+            activeClassName="pageSwitcherItem-activeS"
+            className="pageSwitcherItemS"
+          >
+            Sign Up
+          </NavLink>
+        </div>
+        <div className="form-outline">
+          <input
+            type="email"
+            id="form3Example1w"
+            className="form-control"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <label className="formLabel" htmlFor="form3Example1w ">
+            Email
+          </label>
+        </div>
 
-            <div className="form-outline">
-              <input
-                type="password"
-                id="form3Example1w"
-                className="form-control"
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <label
-                className="formLabel"
-                htmlFor="form3Example1w"
-              >
-                Password
-              </label>
-            </div>
+        <div className="form-outline">
+          <input
+            type="password"
+            id="form3Example1w"
+            className="form-control"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <label className="formLabel" htmlFor="form3Example1w">
+            Password
+          </label>
+        </div>
 
-            <div className="form-outline">
-              <input
-               type="text"
-               id="form3Example1w"
-               className="form-control"
-               onChange={(e) => setUsername(e.target.value)}
-               />
-              <label className="formLabel" htmlFor="form3Example1w">
-               Username
-              </label>
-            </div>
+        <div className="form-outline">
+          <input
+            type="text"
+            id="form3Example1w"
+            className="form-control"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <label className="formLabel" htmlFor="form3Example1w">
+            Username
+          </label>
+        </div>
 
-            <div className="form-outline">
-                <button
-                  type="submit"
-                  className="button"
-                  onClick={handleSignup}
-                >
-                  Submit
-                </button>
-            </div>
-  
+        <div className="form-outline">
+          <button type="submit" className="button" onClick={handleSignup}>
+            Submit
+          </button>
+        </div>
       </div>
-
     </div>
   );
 }
-
-
-
-{/* <div className="signup">
-      <input
-        type="email"
-        id="form3Example1w"
-        className="form-control"
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <label className="form-label mb-3" htmlFor="form3Example1w ">
-        Email
-      </label>
-      <input
-        type="password"
-        id="form3Example1w"
-        className="form-control"
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <label className="form-label" htmlFor="form3Example1w">
-        Password
-      </label>
-      <input
-        type="text"
-        id="form3Example1w"
-        className="form-control"
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <label className="form-label" htmlFor="form3Example1w">
-        Username
-      </label>
-      <button
-        type="submit"
-        className="btn btn-success btn-lg mb-1"
-        onClick={handleSignup}
-      >
-        Submit
-      </button>
-    </div> */}
