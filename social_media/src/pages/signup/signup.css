@@ -3,3 +3,9 @@
     width: 90px !important;
     margin-left: 50px;
 }
+
+.signIn {
+    display: flex;
+    justify-content: center;
+    margin-bottom: -30px;
+}
