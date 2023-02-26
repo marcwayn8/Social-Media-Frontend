@@ -30,7 +30,7 @@ export default function Login({ setAuth }) {
     };
 
     async function loginUser() {
-      const res = await fetch(`http://localhost:9001/login`, {
+      const res = await fetch(`http://localhost:4005/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -60,7 +60,7 @@ export default function Login({ setAuth }) {
       <Typography variant="body2" color="text.secondary" align="center" {...props}>
         {'Copyright © '}
         <Link color="inherit" href="https://mui.com/">
-          Trip by Trip
+        NoNoise NYC
         </Link>{' '}
         {new Date().getFullYear()}
         {'.'}

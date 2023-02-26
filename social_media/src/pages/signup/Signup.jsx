@@ -30,7 +30,7 @@ export default function Signup() {
       last_name: "",
     };
 
-    const result = await fetch("http://localhost:9001/signup", {
+    const result = await fetch("http://localhost:4005/new_user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -51,7 +51,7 @@ export default function Signup() {
       >
         {"Copyright © "}
         <Link color="inherit" href="https://mui.com/">
-          Trip by Trip
+         NoNoise NYC
         </Link>{" "}
         {new Date().getFullYear()}
         {"."}
@@ -91,12 +91,12 @@ export default function Signup() {
             <Grid container spacing={2}>
               <Grid item xs={12} onChange={(e) => setUsername(e.target.value)}>
                 <TextField
-                  autoComplete="given-name"
-                  name="firstName"
+                  autoComplete="username"
+                  name="username"
                   required
                   fullWidth
-                  id="firstName"
-                  label="User Name"
+                  id="username"
+                  label="username"
                   autoFocus
                 />
               </Grid>

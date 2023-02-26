@@ -11,7 +11,7 @@ export default function Home() {
   const { user, setUser, setPosts, isAuth, theme } = useContext(AppContext);
 
   useEffect(() => {
-    fetch("http://localhost:9001/posts")
+    fetch("http://localhost:4005/post")
       .then((response) => response.json())
       .then((data) => setPosts(data.data));
   }, []);
