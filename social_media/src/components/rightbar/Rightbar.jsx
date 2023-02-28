@@ -14,7 +14,7 @@ export default function Rightbar({ profile, userInfo }) {
   const { user, setUser } = useContext(AppContext);
 
   useEffect(() => {
-    fetch(`http://localhost:9001/users/${user.user_id}/friends`)
+    fetch(`http://localhost:4005/users/${user.id}`)
       .then((response) => response.json())
       .then((data) => setFriends(data));
   }, []);
@@ -62,7 +62,7 @@ export default function Rightbar({ profile, userInfo }) {
       if (newUserInfo.country === "") newUserInfo.country = user.country;
       if (newUserInfo.bio === "") newUserInfo.bio = user.bio;
 
-      await fetch(`http://localhost:9001/profile/${user.user_id}/bio`, {
+      await fetch(`http://localhost:4005/profile/${user.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -88,7 +88,7 @@ export default function Rightbar({ profile, userInfo }) {
         friend_two: userInfo.user_id,
       };
       try {
-        await fetch(`http://localhost:9001/users/${user.user_id}/friends`, {
+        await fetch(`http://localhost:4005/users/${user.id}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -112,8 +112,8 @@ export default function Rightbar({ profile, userInfo }) {
             !friends.some((f) => f.user_id === userInfo.user_id) && (
               <PersonAddIcon className="add_friend" onClick={handleFriend} />
             )}
-          {/* )} */}
-          {user.user_id == userInfo.user_id && (
+         
+          { (
             <>
               <button
                 type="button"
@@ -238,15 +238,15 @@ export default function Rightbar({ profile, userInfo }) {
         <div className="rightbarInfo">
           <div className="rightbarInfoItem">
             <span className="rightbarInfoKey">City:</span>
-            <span className="rightbarInfoValue">{user.city}</span>
+            <span className="rightbarInfoValue">{user.id}</span>
           </div>
           <div className="rightbarInfoItem">
             <span className="rightbarInfoKey">From:</span>
-            <span className="rightbarInfoValue">{user.country}</span>
+            <span className="rightbarInfoValue">{user.id}</span>
           </div>
           <div className="rightbarInfoItem">
             <span className="rightbarInfoKey">Bio:</span>
-            <span className="rightbarInfoValue">{user.bio}</span>
+            <span className="rightbarInfoValue">{user.id}</span>
           </div>
         </div>
       </>

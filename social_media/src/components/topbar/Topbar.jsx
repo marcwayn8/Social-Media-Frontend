@@ -11,6 +11,8 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AppContext from "../../context/appContext";
 import "./topbar.css";
+import logo from "../../assets/newLogo.png";
+
 
 export default function Topbar() {
   const { user, setIsAuth, setUser, theme, toggleTheme } =
@@ -28,15 +30,16 @@ export default function Topbar() {
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
-        <span className="logo" onClick={(e) => navigate("/")}>
-          Trip by Trip
+        <span className="logo" src={logo} alt="logo"  onClick={(e) => navigate("/home")}>
+          No Noise NYC 
+
         </span>
       </div>
       <div className="topbarCenter">
         <div className="searchbar">
           <Search className="searchIcon" />
           <input
-            placeholder="Search for friend, post or users"
+            placeholder="Search for recent posts / complaints"
             className="searchInput"
           />
         </div>
@@ -63,7 +66,7 @@ export default function Topbar() {
                 aria-haspopup="true"
                 aria-expanded={open ? "true" : undefined}
               >
-                <img src={user.profile_pic} alt="" className="topbarImg" />
+                <img alt="" className="topbarImg" />
               </IconButton>
             </Tooltip>
           </Box>
@@ -103,8 +106,8 @@ export default function Topbar() {
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
           >
             <MenuItem onClick={handleClose} className="profile">
-              <img src={user.profile_pic} alt="" className="dropDownImg" />
-              <Link className="dropDownLink" to={`/profile/${user.user_id}`}>
+              <img alt="" className="dropDownImg" />
+              <Link className="dropDownLink" to={`/profile/${user.id}`}>
                 {" "}
                 Profile
               </Link>

@@ -41,7 +41,7 @@ export default function Chatting({ userInfo }) {
             <div className="d-flex flex-row p-3">
               <img
                 className="postProfileImg2"
-                src={userInfo.profile_pic}
+               
                 alt=""
               />
               <div className="chat ml-2 p-3">

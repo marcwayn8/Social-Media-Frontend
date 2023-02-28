@@ -25,9 +25,7 @@ export default function Signup() {
     const userInfo = {
       username: username,
       password: password,
-      email: email,
-      first_name: "",
-      last_name: "",
+      email: email
     };
 
     const result = await fetch("http://localhost:4005/new_user", {
@@ -38,6 +36,7 @@ export default function Signup() {
       body: JSON.stringify(userInfo),
     });
     const parsed = await result.json();
+    console.log(parsed)
     navigate("/login", { replace: true });
   };
 

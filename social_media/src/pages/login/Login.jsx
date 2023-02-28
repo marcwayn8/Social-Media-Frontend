@@ -13,14 +13,16 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+
 import AppContext from "../../context/appContext";
 import "./login.css";
 
 export default function Login({ setAuth }) {
-  const { setUser, setIsAuth, isAuth } = useContext(AppContext);
+  const { setUser, setIsAuth, isAuth,user } = useContext(AppContext);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [refreshToken, setRefreshToken] = useState("");
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -35,26 +37,52 @@ export default function Login({ setAuth }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(loginData),
+        body: JSON.stringify(loginData)
       });
       const data = await res.json();
+      console.log(data)
       if (!data.token) {
         setIsAuth(false);
         return;
       }
+      setRefreshToken(data.refreshToken)
 
       window.localStorage.setItem("token", data.token);
       window.localStorage.setItem('currUser', JSON.stringify(data.user));
-      setIsAuth(true);
+      setIsAuth(data.isAuth);
       setUser(data.user);
-      navigate('/');
+    
     }
+
+    const token = window.localStorage.getItem("token");
+    console.log(token)
+
+
+    async function authenticateUser() {
+      const res = await fetch(`http://localhost:4005/authenticate`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify(refreshToken),
+      });
+      const data = await res.json();
+      console.log(data)
+      // if (!data.token) {
+      //   setIsAuth(false);
+      //   return;
+      }
+      
+      authenticateUser();
     
     loginUser();
+   
     setEmail("");
     setPassword("");
-  };
+    navigate(`/home`);
 
+  };
   function Copyright(props) {
     return (
       <Typography variant="body2" color="text.secondary" align="center" {...props}>

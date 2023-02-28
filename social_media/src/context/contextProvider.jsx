@@ -15,7 +15,7 @@ const ContextProvider = (props) => {
 
   useEffect(() => {
     async function getFeed() {
-      const res = await fetch("http://localhost:9001/feed");
+      const res = await fetch("http://localhost:4005/post");
       const data = await res.json();
       setFeed(data);
       setPosts(data)
@@ -23,20 +23,22 @@ const ContextProvider = (props) => {
 
     async function getLikeCountAndCommentCount() {
       const map = {};
-      const commentRes = await fetch("http://localhost:9001/comments");
+      const commentRes = await fetch("http://localhost:4005/comment");
       const commentData = await commentRes.json();
-      for (let comment of commentData.data) {
+      for (let comment of commentData) {
         map[comment.post_id] = [parseInt(comment.commentcount), 0];
       }
-      const likeRes = await fetch("http://localhost:9001/likes");
+      console.log(commentData)
+      const likeRes = await fetch("http://localhost:4005/post");
       const likeData = await likeRes.json();
-      for (let like of likeData) {
-        if (like.post_id in map) {
-          map[like.post_id][1] = parseInt(like.likecount);
-        } else {
-          map[like.post_id] = [0, parseInt(like.likecount)];
-        }
-      }
+      console.log(likeData)
+      // for (let like of likeData) {
+      //   if (like.post_id in map) {
+      //     map[like.post_id][1] = parseInt(like.likecount);
+      //   } else {
+      //     map[like.post_id] = [0, parseInt(like.likecount)];
+      //   }
+      // }
       setFeedMetric(map);
     }
 
@@ -49,7 +51,7 @@ const ContextProvider = (props) => {
     if (!userToken) return;
 
     async function checkAuth() {
-      const response = await fetch("http://localhost:9001/authenticate", {
+      const response = await fetch("http://localhost:4005/authenticate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

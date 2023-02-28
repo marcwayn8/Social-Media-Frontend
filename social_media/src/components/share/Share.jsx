@@ -28,12 +28,12 @@ export default function Share() {
       hashtag: hashtag,
       image: "",
       description: input,
-      user_id: user.user_id,
+      user_id: user.id,
       username: user.username,
       upload: image,
     };
 
-    const result = await fetch("http://localhost:9001/posts", {
+    const result = await fetch("http://localhost:4005/post", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -60,7 +60,7 @@ export default function Share() {
         <div className="shareTop">
           <img
             className="shareProfileImg"
-            src={user.profile_pic}
+            // src={user.profile_pic}
             alt="Profile Pic"
           />
           <input

@@ -17,7 +17,7 @@ export default function Comments({ allComments, aComment, setComments, post }) {
 
   const handleDelete = async (e) => {
     try {
-      await fetch(`http://localhost:9001/comments/${allComments.comment_id}`, {
+      await fetch(`http://localhost:4005/comments/${allComments.comment_id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

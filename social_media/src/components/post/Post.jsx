@@ -19,7 +19,7 @@ export default function Post({ post, setPosts, userInfo }) {
 
   const handleComments = async (e) => {
     setShowComment(!showComment);
-    await fetch(`http://localhost:9001/posts/${post.post_id}/comments`)
+    await fetch(`http://localhost:4005/post${post.post_id}/comments`)
       .then((response) => response.json())
       .then((data) => {
         setComments(data.data);
@@ -29,7 +29,7 @@ export default function Post({ post, setPosts, userInfo }) {
   const likeHandler = async () => {
     if (!isLiked) {
       feedMetric[post.post_id][1] += 1;
-      await fetch(`http://localhost:9001/posts/${post.post_id}/likes`, {
+      await fetch(`http://localhost:4005/post/${post.post_id}/likes`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -38,7 +38,7 @@ export default function Post({ post, setPosts, userInfo }) {
       });
     } else {
       feedMetric[post.post_id][1] -= 1;
-      await fetch(`http://localhost:9001/posts/${post.post_id}/likes`, {
+      await fetch(`http://localhost:4005/post/${post.post_id}/likes`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -51,7 +51,7 @@ export default function Post({ post, setPosts, userInfo }) {
 
   const handleDelete = async (e) => {
     try {
-      await fetch(`http://localhost:9001/posts/${post.post_id}`, {
+      await fetch(`http://localhost:4005/post/${post.post_id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -73,7 +73,7 @@ export default function Post({ post, setPosts, userInfo }) {
     };
 
     const result = await fetch(
-      `http://localhost:9001/posts/${post.post_id}/comments`,
+      `http://localhost:4005/post/${post.post_id}/comments`,
       {
         method: "POST",
         headers: {

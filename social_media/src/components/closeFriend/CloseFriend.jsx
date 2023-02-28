@@ -7,10 +7,10 @@ export default function CloseFriend({ friend, userInfo }) {
   const removeFriend = async (e) => {
     try {
       const data = {
-        user_id: userInfo.user_id,
-        friend_two: friend.user_id,
+        user_id: userInfo.id
+       
       };
-      await fetch(`http://localhost:9001/users/${userInfo.user_id}/friends`, {
+      await fetch(`http://localhost:4005/users/4`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -25,12 +25,12 @@ export default function CloseFriend({ friend, userInfo }) {
   return (
     <li className="sidebarFriend">
       <div className="fr-list">
-        <Link className="friendLinks" to={`/profile/${friend.user_id}`}>
-          <img className="sidebarFriendImg" src={friend.profile_pic} alt="" />
+        <Link className="friendLinks" to={`/profile/1`}>
+          <img className="sidebarFriendImg" alt="" />
           <span className="sidebarFriendName">{friend.username}</span>{" "}
         </Link>
       </div>
-      <Link className="message-icon" to={`/chat/${friend.user_id}`}>
+      <Link className="message-icon">
         <div className="message-icon">
           <IconButton aria-label="delete">
             <BsFillChatLeftDotsFill

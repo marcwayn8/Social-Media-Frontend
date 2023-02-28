@@ -4,31 +4,46 @@ import MyPosts from "../myPosts/MyPosts.jsx";
 import "./myFeed.css";
 
 export default function MyFeed({ userInfo }) {
-  const [allMyPosts, setAllMyPosts] = useState([]);
-  const [posts, setPosts] = useState([]);
-  const { user, setUser } = useContext(AppContext)
+const { user } = useContext(AppContext);
+const [allMyPosts, setAllMyPosts] = useState([]);
+const [posts, setPosts] = useState([]);
 
-  useEffect(() => {
-    fetch("http://localhost:9001/posts")
-      .then((response) => response.json())
-      .then((data) => setPosts(data.data));
-  }, []);
+useEffect(() => {
+const fetchAllPosts = async () => {
+const response = await fetch("http://localhost:4005/post");
+const data = await response.json();
+setPosts(data.data);
+};
+fetchAllPosts();
+}, []);
 
-  useEffect(() => {
-    if (!userInfo.user_id) return 
-    fetch(`http://localhost:9001/posts/${userInfo.user_id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setAllMyPosts(data.data)});
-  }, [userInfo.user_id]);
+useEffect(() => {
+if (!userInfo.user_id) return;
+const fetchUserPosts = async () => {
 
-  return (
-    <div className="feed">
-      <div className="feedWrapper">
-        {allMyPosts && allMyPosts.map((mP) => (
-          <MyPosts key={mP.post_id} post={mP} posts={posts} setPosts={setPosts} setAllMyPosts={setAllMyPosts} userInfo={user} allMyPosts={allMyPosts}/>
-        ))}
-      </div>
-    </div>
-  );
+  const response = await fetch(`http://localhost:4005/post/${userInfo.user_id}`);
+
+const data = await response.json();
+setAllMyPosts(data.data);
+};
+fetchUserPosts();
+}, [userInfo.user_id]);
+
+return (
+<div className="feed">
+<div className="feedWrapper">
+{allMyPosts.map((post) => (
+<MyPosts
+         key={post.post_id}
+         post={post}
+         posts={posts}
+         setPosts={setPosts}
+         setAllMyPosts={setAllMyPosts}
+         userInfo={user}
+         allMyPosts={allMyPosts}
+       />
+))}
+</div>
+</div>
+);
 }

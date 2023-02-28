@@ -11,11 +11,17 @@ export default function Profile() {
   const [userInfo, setUserInfo] = useState({});
   const { id } = useParams();
 
+
+  const loggedInUser = window.localStorage.getItem('currUser');
+
+  console.log(loggedInUser);
+
+
   useEffect(() => {
     if (!id) return;
-    fetch(`http://localhost:9001/profile/${id}`)
+    fetch(`http://localhost:4005/users/${id}`)
       .then((response) => response.json())
-      .then((data) => setUserInfo(data.data));
+      .then((data) => setUserInfo(data));
   }, [id]);
 
   window.onbeforeunload = function () {
@@ -32,18 +38,18 @@ export default function Profile() {
             <div className="profileCover">
               <img
                 className="profileCoverImg"
-                src={userInfo.cover_pic}
+                // src={userInfo.cover_pic}
                 alt=""
               />
               <img
                 className="profileUserImg"
-                src={userInfo.profile_pic}
+                src='./img.jpg'
                 alt=""
               />
             </div>
             <div className="profileInfo">
               <h4 className="profileInfoName">{userInfo.username}</h4>
-              <span className="profileInfoDesc">{userInfo.intro}</span>
+              <span className="profileInfoDesc"></span>
             </div>
           </div>
           <div className="profileRightBottom">
