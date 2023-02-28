@@ -17,6 +17,7 @@ const ContextProvider = (props) => {
     async function getFeed() {
       const res = await fetch("http://localhost:4005/post");
       const data = await res.json();
+      console.log(data)
       setFeed(data);
       setPosts(data)
     }
@@ -26,7 +27,7 @@ const ContextProvider = (props) => {
       const commentRes = await fetch("http://localhost:4005/comment");
       const commentData = await commentRes.json();
       for (let comment of commentData) {
-        map[comment.post_id] = [parseInt(comment.commentcount), 0];
+        map[comment.post_id] = [parseInt(comment.likes), 0];
       }
       console.log(commentData)
       const likeRes = await fetch("http://localhost:4005/post");

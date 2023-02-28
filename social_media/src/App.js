@@ -8,7 +8,8 @@ import Login from "./pages/login/Login.jsx";
 import Profile from "./pages/profile/Profile.jsx";
 import Signup from "./pages/signup/Signup.jsx";
 import SeverityMeterComponent from "./components/complaint form/complaint";
-import MarketLandingPage from "./pages/landing/marketing/MarketLandingPage.jsx";
+
+
 
 
 
@@ -18,8 +19,9 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route path="/landing" element={<MarketLandingPage />} />
+        <Route path="/landing" element={<Home />} />
+        <Route path="/home" element={<Chat />} />
+       
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/main" element={<SeverityMeterComponent />} />

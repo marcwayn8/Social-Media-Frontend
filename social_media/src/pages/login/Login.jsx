@@ -80,7 +80,13 @@ export default function Login({ setAuth }) {
    
     setEmail("");
     setPassword("");
-    navigate(`/home`);
+    if(isAuth){
+
+    navigate(`/home`);}
+    else{
+      alert("Invalid Credentials");
+
+    }
 
   };
   function Copyright(props) {

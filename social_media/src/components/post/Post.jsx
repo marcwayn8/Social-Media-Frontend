@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import AppContext from "../../context/appContext.jsx";
 import Comments from "../comments/Comments.jsx";
 import "./post.css";
+import img from './img.jpg'
 
 export default function Post({ post, setPosts, userInfo }) {
   const { posts, feedMetric, setFeedMetric, user } = useContext(AppContext);
@@ -17,47 +18,47 @@ export default function Post({ post, setPosts, userInfo }) {
   const [reply, setReply] = useState("");
   const [showComment, setShowComment] = useState(false);
 
-  const handleComments = async (e) => {
-    setShowComment(!showComment);
-    await fetch(`http://localhost:4005/post${post.post_id}/comments`)
-      .then((response) => response.json())
-      .then((data) => {
-        setComments(data.data);
-      });
-  };
+  // const handleComments = async (e) => {
+  //   setShowComment(!showComment);
+  //   await fetch(`http://localhost:4005/post${post.post_id}/comments`)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setComments(data.data);
+  //     });
+  // };
 
-  const likeHandler = async () => {
-    if (!isLiked) {
-      feedMetric[post.post_id][1] += 1;
-      await fetch(`http://localhost:4005/post/${post.post_id}/likes`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ user_id: user.user_id }),
-      });
-    } else {
-      feedMetric[post.post_id][1] -= 1;
-      await fetch(`http://localhost:4005/post/${post.post_id}/likes`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ user_id: user.user_id }),
-      });
-    }
-    setIsLiked(!isLiked);
-  };
+  // const likeHandler = async () => {
+  //   if (!isLiked) {
+  //     feedMetric[post.post_id][1] += 1;
+  //     await fetch(`http://localhost:4005/post/updateLikes`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ user_id: user.user_id }),
+  //     });
+  //   } else {
+  //     feedMetric[post.postId][1] -= 1;
+  //     await fetch(`http://localhost:4005/post/updateLikes`, {
+  //       method: "DELETE",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ user_id: user.user_id }),
+  //     });
+  //   }
+  //   setIsLiked(!isLiked);
+  // };
 
   const handleDelete = async (e) => {
     try {
-      await fetch(`http://localhost:4005/post/${post.post_id}`, {
+      await fetch(`http://localhost:4005/post/${post.postId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
       });
-      const filtered = posts.filter((p) => p.post_id != post.post_id);
+      const filtered = posts.filter((p) => p.postId !== post.postId);
       setPosts(filtered);
     } catch (error) {
       console.log(error);
@@ -67,13 +68,14 @@ export default function Post({ post, setPosts, userInfo }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
-      comment_body: reply,
-      user_id: userInfo.user_id,
-      post_id: post.post_id,
+     
+      user_id: userInfo.id,
+      postId: post.postId,
+      commentDescription: reply
     };
 
     const result = await fetch(
-      `http://localhost:4005/post/${post.post_id}/comments`,
+      `http://localhost:4005/post/comment`,
       {
         method: "POST",
         headers: {
@@ -84,7 +86,7 @@ export default function Post({ post, setPosts, userInfo }) {
     );
     const parsed = await result.json();
     parsed.data[0].username = userInfo.username;
-    parsed.data[0].profile_pic = userInfo.profile_pic;
+    // parsed.data[0].profile_pic = userInfo.profile_pic;
     setComments([...comments, parsed.data[0]]);
     const map = { ...feedMetric };
     map[post.post_id][0] += 1;
@@ -97,16 +99,16 @@ export default function Post({ post, setPosts, userInfo }) {
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <Link to={`/profile/${post.user_id}`}>
-              <img className="postProfileImg" src={post.profile_pic} alt="" />
+            <Link to={`/profile/${user.id}`}>
+              <img className="postProfileImg" src={img} alt="" />
             </Link>
-            <span className="postUsername">{post.username}</span>
+            <span className="postUsername">{user.username}</span>
             <span className="postDate">
-              {DateTime.fromISO(post.time_posted).toRelative()}
+              {DateTime.fromISO().toRelative()}
             </span>
           </div>
           <div className="postTopRight">
-            {post.user_id === userInfo.user_id && (
+            {post.user_id === userInfo.id && (
               <IconButton aria-label="delete">
                 <DeleteIcon
                   className="delete-comment"
@@ -118,9 +120,9 @@ export default function Post({ post, setPosts, userInfo }) {
           </div>
         </div>
         <div className="postCenter">
-          <span className="postText">{post.description}</span>
-          <img className="postImg" src={post.upload} alt="" />
-          <img className="postImg" src={post.image} alt="" />
+          <span className="postText">{post.post_description}</span>
+          <img className="postImg" src={post.post_title} alt="" />
+          <img className="postImg" src={post.post_type} alt="" />
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
@@ -128,40 +130,40 @@ export default function Post({ post, setPosts, userInfo }) {
               {!isLiked ? (
                 <FavoriteBorderTwoToneIcon
                   className="likeIcon"
-                  onClick={likeHandler}
+                 
                 />
               ) : (
                 <FavoriteIcon
                   className="likeIcon"
-                  onClick={likeHandler}
+                  
                 />
               )}
             </IconButton>
             <span className="postLikeCounter">
-              {feedMetric[post.post_id] && feedMetric[post.post_id][1] > 1 && (
+              {feedMetric[post.post_id] && feedMetric[post.postId][1] > 1 && (
                 <span className="postLikeCounter">
-                  {feedMetric[post.post_id][1]} Likes
+                  {feedMetric[post.postId]} Likes
                 </span>
               )}
-              {feedMetric[post.post_id] &&
-                feedMetric[post.post_id][1] === 0 && (
+              {feedMetric[post.postId] &&
+                feedMetric[post.postId][1] === 0 && (
                   <span className="postLikeCounter">0 Likes</span>
                 )}
-              {feedMetric[post.post_id] &&
-                feedMetric[post.post_id][1] === 1 && (
+              {feedMetric[post.postId] &&
+                feedMetric[post.postId][1] === 1 && (
                   <span className="postLikeCounter">1 Like</span>
                 )}
             </span>
           </div>
           <div className="postBottomRight">
-            <span className="postCommentText" onClick={handleComments}>
-              {feedMetric[post.post_id] && feedMetric[post.post_id][0] > 0 && (
+            <span className="postCommentText" >
+              {feedMetric[post.postId] && feedMetric[post.postId][0] > 0 && (
                 <span className="postCommentText">
                   {feedMetric[post.post_id][0]} Comments
                 </span>
               )}
-              {feedMetric[post.post_id] &&
-                feedMetric[post.post_id][0] === 0 && (
+              {feedMetric[post.postId] &&
+                feedMetric[post.postId][0] === 0 && (
                   <span className="postCommentText">
                     Be the first to comment
                   </span>

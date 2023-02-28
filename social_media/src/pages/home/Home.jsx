@@ -7,13 +7,15 @@ import Topbar from "../../components/topbar/Topbar.jsx";
 import AppContext from "../../context/appContext.jsx";
 import "./home.css";
 
+
 export default function Home() {
   const { user, setUser, setPosts, isAuth, theme } = useContext(AppContext);
 
   useEffect(() => {
     fetch("http://localhost:4005/post")
       .then((response) => response.json())
-      .then((data) => setPosts(data.data));
+      .then((data) => {setPosts(data); console.log(data)})
+;
   }, []);
 
   return !isAuth ? <Navigate to="/login"/> : (

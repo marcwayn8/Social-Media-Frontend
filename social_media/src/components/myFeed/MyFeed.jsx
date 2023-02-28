@@ -12,29 +12,29 @@ useEffect(() => {
 const fetchAllPosts = async () => {
 const response = await fetch("http://localhost:4005/post");
 const data = await response.json();
-setPosts(data.data);
+setPosts(data);
 };
 fetchAllPosts();
 }, []);
 
 useEffect(() => {
-if (!userInfo.user_id) return;
+if (!user.id) return;
 const fetchUserPosts = async () => {
 
-  const response = await fetch(`http://localhost:4005/post/${userInfo.user_id}`);
+  const response = await fetch(`http://localhost:4005/post/${user.id}`);
 
 const data = await response.json();
 setAllMyPosts(data.data);
 };
 fetchUserPosts();
-}, [userInfo.user_id]);
+}, [user.id]);
 
 return (
 <div className="feed">
 <div className="feedWrapper">
 {allMyPosts.map((post) => (
 <MyPosts
-         key={post.post_id}
+         key={post._id}
          post={post}
          posts={posts}
          setPosts={setPosts}

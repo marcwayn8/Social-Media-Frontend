@@ -19,6 +19,8 @@ export default function Topbar() {
     useContext(AppContext);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+
+  
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -30,7 +32,10 @@ export default function Topbar() {
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
-        <span className="logo" src={logo} alt="logo"  onClick={(e) => navigate("/home")}>
+        <span className="logo" src={logo} alt="logo" style={{
+              width: "20px",
+              marginLeft: "5px"
+            }} onClick={(e) => navigate("/home")}>
           No Noise NYC 
 
         </span>

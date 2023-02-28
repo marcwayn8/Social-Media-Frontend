@@ -14,7 +14,7 @@ export default function Rightbar({ profile, userInfo }) {
   const { user, setUser } = useContext(AppContext);
 
   useEffect(() => {
-    fetch(`http://localhost:4005/users/${user.id}`)
+    fetch(`http://localhost:4005/users/${user.id-1}`)
       .then((response) => response.json())
       .then((data) => setFriends(data));
   }, []);
@@ -242,11 +242,11 @@ export default function Rightbar({ profile, userInfo }) {
           </div>
           <div className="rightbarInfoItem">
             <span className="rightbarInfoKey">From:</span>
-            <span className="rightbarInfoValue">{user.id}</span>
+            <span className="rightbarInfoValue">{user.username}</span>
           </div>
           <div className="rightbarInfoItem">
             <span className="rightbarInfoKey">Bio:</span>
-            <span className="rightbarInfoValue">{user.id}</span>
+            <span className="rightbarInfoValue">{user.email}</span>
           </div>
         </div>
       </>

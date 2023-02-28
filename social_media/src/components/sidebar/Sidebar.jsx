@@ -41,7 +41,7 @@ export default function Sidebar() {
               <CloseFriend
               key={f.id}
               friend={f}
-              userInfo={user}
+              userInfo={user.username}
               // setFriends={setFriends}
               // allFriends={friends}
             />

@@ -1,6 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import L from 'leaflet';
+import { useContext } from 'react';
+import AppContext from '../../context/appContext';
+const { posts, feedMetric, setFeedMetric, user } = useContext(AppContext);
 
 function SeverityMeterComponent() {
   const mapRef = useRef(null);
@@ -13,12 +16,13 @@ function SeverityMeterComponent() {
     severity: 'low',
     userId: '',
   });
-  const [user, setUser] = useState('');
+
   const [complaints, setComplaints] = useState([]);
+
 
   useEffect(() => {
     initMap();
-    getCurrentUser();
+  
     fetchLatestComplaints();
   }, []);
 
@@ -99,18 +103,11 @@ function SeverityMeterComponent() {
       });
   }
 
-  function getCurrentUser() {
-    axios.get('http://localhost:4005/users')
-      .then(response => {
-        const currentUser = response.data;
-        setUser(currentUser);
-      })
-      .catch(error => {
-        console.error(`Error getting current user: ${error}`);
-      });
-  }
 
-  getCurrentUser();
+  const currUser = localStorage.getItem('currUser')
+  
+  
+
 
 return (
     <div className="severity-meter-component">
