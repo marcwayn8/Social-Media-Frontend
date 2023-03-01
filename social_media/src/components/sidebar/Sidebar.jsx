@@ -12,7 +12,7 @@ export default function Sidebar() {
   useEffect(() => {
     fetch(`http://localhost:4005/users`)
       .then((response) => response.json())
-      .then((data) => setFriends(data));
+      .then((data) => console.log(data));
   }, []);
 
   return (
@@ -36,16 +36,7 @@ export default function Sidebar() {
         </ul>
         <hr className="sidebarHr" />
         <ul className="sidebarFriendList">
-          {friends.length > 0 &&
-            friends.map((f) => (
-              <CloseFriend
-              key={f.id}
-              friend={f}
-              userInfo={user.username}
-              // setFriends={setFriends}
-              // allFriends={friends}
-            />
-            ))}
+          
         </ul>
       </div>
     </div>

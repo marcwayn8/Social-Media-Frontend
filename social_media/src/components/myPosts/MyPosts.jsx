@@ -33,7 +33,7 @@ export default function MyPosts({ userInfo }) {
 
   const likeHandler = async () => {
     if (!isLiked) {
-      feedMetric[post.post_id][1] += 1;
+      feedMetric[post.postId][1] += 1;
       await fetch(`http://localhost:4005/post/${post.postId}`, {
         method: "POST",
         headers: {
@@ -131,7 +131,7 @@ export default function MyPosts({ userInfo }) {
     }
     onClick={likeHandler}
     >
-    {post.likes_count}
+    {post.likes}
     </Button>
     <Button
     className="my-post-comment-btn"

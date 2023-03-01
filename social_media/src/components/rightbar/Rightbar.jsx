@@ -15,7 +15,7 @@ export default function Rightbar({ profile, userInfo }) {
   const { user, setUser } = useContext(AppContext);
 
   useEffect(() => {
-    fetch(`http://localhost:4005/users/${user.id}`)
+    fetch(`http://localhost:4005/users`)
       .then((response) => response.json())
       .then((data) => setFriends(data));
   }, []);

@@ -13,9 +13,6 @@ export default function Share() {
   const [input, setInput] = useState("");
   const [title, setTitle] = useState("");
 
-  const maxNumber = 69;
-  
-
   async function createPost(e) {
     e.preventDefault();
     if (input === "") return;
@@ -40,7 +37,7 @@ export default function Share() {
 
     setPosts([parsed.data[0], ...posts]);
     const map = { ...feedMetric };
-    map[parsed.data[0].post_id] = [0, 0];
+    map[parsed.data[0].postId] = [0, 0];
     setFeedMetric(map);
     setInput("");
   }

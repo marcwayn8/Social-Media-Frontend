@@ -34,7 +34,7 @@ export default function Topbar() {
       <div className="topbarLeft">
         <span className="logo"   onClick={(e) => navigate("/home")}>
           No Noise NYC <img src={logo} alt="logo" style={{
-              width: "20px",
+              width: "150px",
               marginLeft: "25px"
             }}></img>
 

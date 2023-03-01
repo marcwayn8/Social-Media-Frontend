@@ -8,6 +8,8 @@ import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import AppContext from "../../context/appContext.jsx";
 import Comments from "../comments/Comments.jsx";
+import CommentModal from "../comments/commentModal.js";
+import CommentDropDown from "../comments/commentDropdown.js";
 import "./post.css";
 import img from './img.jpg'
 
@@ -100,7 +102,7 @@ export default function Post({ post, setPosts, userInfo }) {
         <div className="postTop">
           <div className="postTopLeft">
             <Link to={`/profile/${user.id}`}>
-              <img className="postProfileImg" src={img} alt="" />
+              <img className="postProfileImg" id="logo" src={img} alt="" />
             </Link>
             <span className="postUsername">{user.username}</span>
             <span className="postDate">
@@ -108,7 +110,7 @@ export default function Post({ post, setPosts, userInfo }) {
             </span>
           </div>
           <div className="postTopRight">
-            {post.user_id === userInfo.id && (
+            {post.user_id = userInfo.id && (
               <IconButton aria-label="delete">
                 <DeleteIcon
                   className="delete-comment"
@@ -121,8 +123,8 @@ export default function Post({ post, setPosts, userInfo }) {
         </div>
         <div className="postCenter">
           <span className="postText">{post.post_description}</span>
-          <img className="postImg" src={post.post_title} alt="" />
-          <img className="postImg" src={post.post_type} alt="" />
+          <h2 >{post.post_title}  </h2>
+          <h3>{post.post_type} </h3> 
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
@@ -163,7 +165,21 @@ export default function Post({ post, setPosts, userInfo }) {
               {feedMetric[post.postId] &&
                 feedMetric[post.postId][0] === 0 && (
                   <span className="postCommentText">
-                    Be the first to comment
+                 <span className="inline-flex items-center text-sm">
+                              <button type="button" className="inline-flex space-x-2 text-gray-400 hover:text-gray-500">
+                                <CommentModal className="h-5 w-5" aria-hidden="true" postId={post.postId}/>
+                                <span className="font-medium text-gray-900"></span>
+                                <span className="sr-only">likes</span>
+                              </button>
+                            </span>
+                            <span className="inline-flex items-center text-sm">
+                              <button type="button" className="inline-flex space-x-2 text-gray-400 hover:text-gray-500">
+
+                                <span className="font-medium text-gray-900"></span>
+                                <span className="sr-only">likes</span>
+                              </button>
+                              <CommentDropDown className="h-5 w-5" aria-hidden="true" postId={post.postId}/>
+                            </span>
                   </span>
                 )}
             </span>
