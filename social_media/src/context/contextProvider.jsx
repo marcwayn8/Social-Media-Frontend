@@ -48,6 +48,24 @@ const ContextProvider = (props) => {
   }, []);
 
   useEffect(() => {
+
+
+    // async function authenticateUser() { 
+    //   const token = window.localStorage.getItem("token");
+    //   const res = await fetch(`http://localhost:4005/authenticate`, {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       'Authorization': 'Bearer ' + token
+    //     },
+    //     body: JSON.stringify(token),
+    //   });
+    //   const data = await res.json();
+    //   console.log(data)
+    
+    // setEmail("");
+    // setPassword("");}
+
     const userToken = window.localStorage.getItem("token");
     if (!userToken) return;
 
@@ -57,7 +75,7 @@ const ContextProvider = (props) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ userToken }),
+        body: JSON.stringify(userToken),
       });
 
       const data = await response.json();

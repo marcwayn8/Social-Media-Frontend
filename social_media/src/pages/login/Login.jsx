@@ -30,6 +30,9 @@ export default function Login({ setAuth }) {
       email,
       password,
     };
+ 
+    
+    loginUser()
 
     async function loginUser() {
       const res = await fetch(`http://localhost:4005/login`, {
@@ -54,41 +57,15 @@ export default function Login({ setAuth }) {
     
     }
 
-    const token = window.localStorage.getItem("token");
-    console.log(token)
-
-
-    async function authenticateUser() {
-      const res = await fetch(`http://localhost:4005/authenticate`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          'Authorization': 'Bearer ' + token
-        },
-        body: JSON.stringify(refreshToken),
-      });
-      const data = await res.json();
-      console.log(data)
-      // if (!data.token) {
-      //   setIsAuth(false);
-      //   return;
-      }
-      
-      authenticateUser();
-    
-    loginUser();
+ 
    
-    setEmail("");
-    setPassword("");
     if(isAuth){
 
     navigate(`/home`);}
-    else{
-      alert("Invalid Credentials");
-
-    }
-
-  };
+      }
+      
+    
+  
   function Copyright(props) {
     return (
       <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -175,4 +152,4 @@ export default function Login({ setAuth }) {
     </Container>
   </ThemeProvider>
   )
-}
+      }

@@ -24,11 +24,22 @@ export default function Signup() {
     e.preventDefault();
     const userInfo = {
       username: username,
-      password: password,
-      email: email
+      email: email,
+      password: password
     };
 
-    const result = await fetch("http://localhost:4005/new_user", {
+    
+    const auth = await fetch("http://localhost:4005/authuser", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userInfo),
+    });
+    const authen = await auth.json();
+
+    if(authen.isAvailable){
+      const result = await fetch("http://localhost:4005/new_user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -37,9 +48,13 @@ export default function Signup() {
     });
     const parsed = await result.json();
     console.log(parsed)
-    navigate("/login", { replace: true });
-  };
 
+    navigate("/login", { replace: true })}
+    else{
+      alert(authen.message)
+    }     
+} 
+   
   function Copyright(props) {
     return (
       <Typography

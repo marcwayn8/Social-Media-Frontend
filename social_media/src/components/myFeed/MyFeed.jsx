@@ -34,7 +34,7 @@ return (
 <div className="feedWrapper">
 {allMyPosts.map((post) => (
 <MyPosts
-         key={post._id}
+         key={post.postId}
          post={post}
          posts={posts}
          setPosts={setPosts}

@@ -129,18 +129,16 @@ export default function Post({ post, setPosts, userInfo }) {
             <IconButton aria-label="delete">
               {!isLiked ? (
                 <FavoriteBorderTwoToneIcon
-                  className="likeIcon"
-                 
+                  className="likeIcon" 
                 />
               ) : (
                 <FavoriteIcon
-                  className="likeIcon"
-                  
+                  className="likeIcon" 
                 />
               )}
             </IconButton>
             <span className="postLikeCounter">
-              {feedMetric[post.post_id] && feedMetric[post.postId][1] > 1 && (
+              {feedMetric[post.postId] && feedMetric[post.postId][1] > 1 && (
                 <span className="postLikeCounter">
                   {feedMetric[post.postId]} Likes
                 </span>
@@ -159,7 +157,7 @@ export default function Post({ post, setPosts, userInfo }) {
             <span className="postCommentText" >
               {feedMetric[post.postId] && feedMetric[post.postId][0] > 0 && (
                 <span className="postCommentText">
-                  {feedMetric[post.post_id][0]} Comments
+                  {feedMetric[post.postId][0]} Comments
                 </span>
               )}
               {feedMetric[post.postId] &&

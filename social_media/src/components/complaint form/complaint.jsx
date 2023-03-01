@@ -1,15 +1,23 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import L from 'leaflet';
+
+import FavoriteIcon from "@mui/icons-material/Favorite";
+
 import { useContext } from 'react';
 import AppContext from '../../context/appContext';
-const { posts, feedMetric, setFeedMetric, user } = useContext(AppContext);
+import './complaint.css'
 
-function SeverityMeterComponent() {
+
+
+
+export default function SeverityMeterComponent(){
+const MapContainer = React.memo(() => {
   const mapRef = useRef(null);
   const [map, setMap] = useState(null);
   const [markerGroup, setMarkerGroup] = useState(null);
-  const [complaint, setComplaint] = useState({
+ 
+  const [complaint, setComplaints] = useState({
     title: '',
     description: '',
     zipCode: '',
@@ -17,17 +25,14 @@ function SeverityMeterComponent() {
     userId: '',
   });
 
-  const [complaints, setComplaints] = useState([]);
-
-
   useEffect(() => {
     initMap();
-  
+
     fetchLatestComplaints();
   }, []);
 
   function initMap() {
-    const map = L.map(mapRef.current).setView([40.7128, -74.0060], 5);
+    const map = L.map(mapRef.current).setView([40.7128, -44.0060], 5);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
       maxZoom: 18,
@@ -44,8 +49,17 @@ function SeverityMeterComponent() {
         if (data.length > 0) {
           const lat = data[0].lat;
           const lon = data[0].lon;
-
-          const marker = L.marker([lat, lon]).addTo(markerGroup);
+  
+          const redIcon = new L.Icon({
+            iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41],
+          });
+  
+          const marker = L.marker([lat, lon], { icon: redIcon }).addTo(markerGroup);
           marker.bindPopup(`<b>${complaint.title}</b><br>${complaint.description}`).openPopup();
         } else {
           console.error(`Could not find location for zip code ${zipCode}`);
@@ -55,7 +69,7 @@ function SeverityMeterComponent() {
         console.error(`Error getting location for zip code ${zipCode}: ${error}`);
       });
   }
-
+  
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -75,22 +89,11 @@ function SeverityMeterComponent() {
     const name = target.name;
     const value = target.type === 'checkbox' ? target.checked : target.value;
 
-    setComplaint({
+    setComplaints({
       ...complaint,
       [name]: value,
     });
   }
-
-  // function getCurrentUser() {
-  //   axios.get('http://localhost:4005/users')
-  //     .then(response => {
-  //       const currentUser = response.data;
-  //       setUser(currentUser);
-  //     })
-  //     .catch(error => {
-  //       console.error(`Error getting current user: ${error}`);
-  //     });
-  // }
 
   function fetchLatestComplaints() {
     axios.get('http://localhost:4005/complaints?_sort=id&_order=desc&_limit=3')
@@ -105,6 +108,8 @@ function SeverityMeterComponent() {
 
 
   const currUser = localStorage.getItem('currUser')
+  console.log(currUser)
+
   
   
 
@@ -112,10 +117,13 @@ function SeverityMeterComponent() {
 return (
     <div className="severity-meter-component">
       <div className="user-profile">
-        <div className="welcome-message">Welcome,</div>
+        <div className="welcome-message">Welcome,{currUser.username}</div>
         <img src="https://via.placeholder.com/50x50" alt="User profile image" />
       </div>
-      <div ref={mapRef} className="map"></div>
+      <div className="map-container">
+  <div ref={mapRef} className="map">{MapContainer}</div>
+</div>
+
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Title:</label>
@@ -125,6 +133,11 @@ return (
           <label>Description:</label>
           <textarea name="description" value={complaint.description} onChange={handleInputChange} className="form-control"></textarea>
         </div>
+        <div className="form-group">
+  <label>Zip code:</label>
+  <input type="text" name="zipCode" value={complaint.zipCode} onChange={handleInputChange} className="form-control" />
+</div>
+
         <div className="form-group">
           <label>Severity:</label>
           <select name="severity" value={complaint.severity} className="form-control">
@@ -138,5 +151,5 @@ return (
     </div>
   );
 }
-
-export default SeverityMeterComponent;
+)
+}

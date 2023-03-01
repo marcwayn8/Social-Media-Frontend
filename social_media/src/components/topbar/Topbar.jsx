@@ -32,11 +32,11 @@ export default function Topbar() {
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
-        <span className="logo" src={logo} alt="logo" style={{
+        <span className="logo"   onClick={(e) => navigate("/home")}>
+          No Noise NYC <img src={logo} alt="logo" style={{
               width: "20px",
-              marginLeft: "5px"
-            }} onClick={(e) => navigate("/home")}>
-          No Noise NYC 
+              marginLeft: "25px"
+            }}></img>
 
         </span>
       </div>

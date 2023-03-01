@@ -8,13 +8,14 @@ import { useContext, useEffect, useState } from "react";
 import { BiWorld } from "react-icons/bi";
 import AppContext from "../../context/appContext";
 import "./rightbar.css";
+import noNoise from './noNooise.png'
 
 export default function Rightbar({ profile, userInfo }) {
   const [friends, setFriends] = useState([]);
   const { user, setUser } = useContext(AppContext);
 
   useEffect(() => {
-    fetch(`http://localhost:4005/users/${user.id-1}`)
+    fetch(`http://localhost:4005/users/${user.id}`)
       .then((response) => response.json())
       .then((data) => setFriends(data));
   }, []);
@@ -25,12 +26,12 @@ export default function Rightbar({ profile, userInfo }) {
         <div className="right-side-container">
           <BiWorld className="world" />{" "}
           <span className="intro-text">
-            <b>Share</b> your <b>World</b> with <b>Others</b>!
+            <b>Report</b> instances <b>of</b> Noise Pollution in New York City <b>!</b>!
           </span>
         </div>
         <img
           className="rightbarAd"
-          src="https://content.api.news/v3/images/bin/4491bf978b849ce0b2f54b196c81cbd9"
+          src={noNoise}
           alt=""
         />
         <div className="cover"></div>
@@ -49,28 +50,20 @@ export default function Rightbar({ profile, userInfo }) {
 
       const newUserInfo = {
         username: user.username,
-        profile_pic: user.profile_pic,
-        cover_pic: user.cover_pic,
+  
         intro,
         bio,
         city,
         country,
       };
 
-      if (newUserInfo.intro === "") newUserInfo.intro = user.intro;
-      if (newUserInfo.city === "") newUserInfo.city = user.city;
-      if (newUserInfo.country === "") newUserInfo.country = user.country;
-      if (newUserInfo.bio === "") newUserInfo.bio = user.bio;
+      if (newUserInfo.intro === "") newUserInfo.intro = "Wayne";
+      if (newUserInfo.city === "") newUserInfo.city = "New York City";
+      if (newUserInfo.country === "") newUserInfo.country = "United States";
+      if (newUserInfo.bio === "") newUserInfo.bio = "Software Engineer";
 
-      await fetch(`http://localhost:4005/profile/${user.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newUserInfo),
-      });
 
-      setUser(newUserInfo);
+      
       // setUser({
       //   ...userInfo,
       //   ...newUserInfo,
@@ -81,25 +74,25 @@ export default function Rightbar({ profile, userInfo }) {
       setBio("");
     };
 
-    const handleFriend = async (e) => {
-      e.preventDefault();
-      const data = {
-        user_id: user.user_id,
-        friend_two: userInfo.user_id,
-      };
-      try {
-        await fetch(`http://localhost:4005/users/${user.id}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        })
-        setFriends([...friends, userInfo])
-      } catch (err) {
-        console.log(err.message);
-      }
-    };
+    // const handleFriend = async (e) => {
+    //   e.preventDefault();
+    //   const data = {
+    //     user_id: user.user_id,
+    //     friend_two: userInfo.user_id,
+    //   };
+    //   try {
+    //     await fetch(`http://localhost:4005/users/${user.id}`, {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify(data),
+    //     })
+    //     setFriends([...friends, userInfo])
+    //   } catch (err) {
+    //     console.log(err.message);
+    //   }
+    // };
     
     return (
       <>
@@ -110,7 +103,7 @@ export default function Rightbar({ profile, userInfo }) {
           )} */}
           {user.user_id !== userInfo.user_id &&
             !friends.some((f) => f.user_id === userInfo.user_id) && (
-              <PersonAddIcon className="add_friend" onClick={handleFriend} />
+              <PersonAddIcon className="add_friend"/>
             )}
          
           { (

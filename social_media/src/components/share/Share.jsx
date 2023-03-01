@@ -9,15 +9,12 @@ import "./share.css";
 export default function Share() {
   const { user, setPosts, posts, feedMetric, setFeedMetric } = useContext(AppContext);
   const [image, setImage] = useState("");
-  const [images, setImages] = useState([]);
+  const [type, setType] = useState([]);
   const [input, setInput] = useState("");
-  const [hashtag, setHashtag] = useState("");
+  const [title, setTitle] = useState("");
 
   const maxNumber = 69;
-  const onChange = (imageList, addUpdateIndex) => {
-    setImages(imageList);
-    setImage(imageList[0].data_url);
-  };
+  
 
   async function createPost(e) {
     e.preventDefault();
@@ -25,12 +22,10 @@ export default function Share() {
     if (image === "") setImage("");
 
     const postInfo = {
-      hashtag: hashtag,
-      image: "",
-      description: input,
       user_id: user.id,
-      username: user.username,
-      upload: image,
+      post_description: input,
+      post_title:title,
+      post_type:type 
     };
 
     const result = await fetch("http://localhost:4005/post", {
@@ -42,7 +37,7 @@ export default function Share() {
     });
     const parsed = await result.json();
     parsed.data[0].username = user.username;
-    parsed.data[0].profile_pic = user.profile_pic;
+
     setPosts([parsed.data[0], ...posts]);
     const map = { ...feedMetric };
     map[parsed.data[0].post_id] = [0, 0];
@@ -52,6 +47,14 @@ export default function Share() {
 
   const handleInputChange = (e) => {
     setInput(e.target.value);
+  };
+
+  const handleTypeChange = (e) => {
+    setType(e.target.value);
+  };
+
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value);
   };
 
   return (
@@ -64,8 +67,20 @@ export default function Share() {
             alt="Profile Pic"
           />
           <input
-            value={input}
+            value={title}
             placeholder={`What's on your mind ${user.username}?`}
+            className="shareInput"
+            onChange={handleTitleChange}
+          />
+           <input
+            value={type}
+          
+            className="shareInput"
+            onChange={handleTypeChange}
+          />
+           <input
+            value={input}
+        
             className="shareInput"
             onChange={handleInputChange}
           />
@@ -75,49 +90,7 @@ export default function Share() {
           <div className="shareOptions">
             <div className="shareOption">
               <div>
-                <ImageUploading
-                  value={images}
-                  onChange={onChange}
-                  maxNumber={maxNumber}
-                  dataURLKey="data_url"
-                >
-                  {({
-                    imageList,
-                    onImageUpload,
-                    onImageRemove,
-                    isDragging,
-                    dragProps,
-                  }) => (
-                    <div className="upload__image-wrapper d-flex">
-                      <button
-                        style={isDragging ? { color: "red" } : null}
-                        onClick={onImageUpload}
-                        {...dragProps}
-                        className="me-1 btn mt-2 upload-button"
-                      >
-                        <BiImageAdd
-                          htmlColor="whitesmoke"
-                          className="shareIcon"
-                        />
-                        Upload
-                      </button>
-                      &nbsp;
-                      {imageList.map((image, index) => (
-                        <div key={index} className="image-item d-flex mt-2">
-                          <p className="mx-1 mt-2">{image.file.name}</p>
-                          <div className="image-item__btn-wrapper">
-                            <button
-                              className="mx-1 btn btn-danger"
-                              onClick={() => onImageRemove(index)}
-                            >
-                              Remove
-                            </button>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </ImageUploading>
+               
               </div>
             </div>
           </div>
