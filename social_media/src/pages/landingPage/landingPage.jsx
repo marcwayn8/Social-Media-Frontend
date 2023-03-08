@@ -26,7 +26,7 @@ export default function LandingPage() {
                NoNoise NYC
               </Typography>
 
-              <Typography variant="h1">A quieter world is a better</Typography>
+              <Typography variant="h1">A quieter world is a better world.</Typography>
 
               <Typography sx={{ color: 'text.secondary' }}>
               NoNoise NYC is dedicated to promoting a quieter world, one community at a time. We recognize the detrimental effects that noise pollution has on the mental, physical, and financial well-being of our members in low-income neighborhoods. 

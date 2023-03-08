@@ -13,21 +13,19 @@ export default function CommentList({ postId }) {
       .then(json => setData(json))
   }, []);
 
+
+  console.log(data)
   return (
     <ul  >
       {
-        data.map(comment => (
           <li className="py-4">
-            {comment.commentDescription}
+            {data.commentDescription}
             <br></br>
-            - {comment.likes}
+            - {data.likes}
           </li>
-        ))
       }
     </ul>
   )
-
-
 }
 
 

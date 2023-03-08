@@ -39,7 +39,7 @@ export default function Topbar() {
 
         </span>
       </div>
-      <div className="topbarCenter">
+      {/* <div className="topbarCenter">
         <div className="searchbar">
           <Search className="searchIcon" />
           <input
@@ -49,7 +49,7 @@ export default function Topbar() {
                         onChange={(e)=>setSearchTerm(e.target.value)}
           />
         </div>
-      </div>
+      </div> */}
       <div className="topbarRight">
         <>
           <div>

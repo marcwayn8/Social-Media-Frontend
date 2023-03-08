@@ -1,31 +1,31 @@
+import { useState, useContext } from "react";
 import IconButton from "@mui/material/IconButton";
-import { useContext, useState } from "react";
 import { BiImageAdd } from "react-icons/bi";
 import { IoMdSend } from "react-icons/io";
-import ImageUploading from "react-images-uploading";
 import AppContext from "../../context/appContext";
 import "./share.css";
-import logo from './img.jpg';
+import logo from "./img.jpg";
 
 export default function Share() {
-  const { user, setPosts, posts, feedMetric, setFeedMetric } = useContext(AppContext);
- 
-  const [type, setType] = useState([]);
-  const [input, setInput] = useState("");
-  const [title, setTitle] = useState("");
+const { user, setPosts, posts, feedMetric, setFeedMetric } = useContext(
+AppContext
+);
 
-  async function createPost(e) {
-    e.preventDefault();
-    if (input === "") return;
-    if (type === "") return;
-    if (title === "") return;
- 
+const [type, setType] = useState("");
+const [input, setInput] = useState("");
+const [title, setTitle] = useState("");
+
+async function createPost(e) {
+e.preventDefault();
+if (input === "") return;
+if (type === "") return;
+if (title === "") return;
 
     const postInfo = {
-      user_id: user.id,
+      userId: user.id.toString(),
       post_description: input,
-      post_title:title,
-      post_type:type 
+      post_title: title,
+      post_type: type,
     };
 
     const result = await fetch("http://localhost:4005/post", {
@@ -36,9 +36,10 @@ export default function Share() {
       body: JSON.stringify(postInfo),
     });
     const parsed = await result.json();
+    console.log(parsed)
     parsed.data[0].username = user.username;
 
-console.log(parsed);
+    console.log(parsed);
 
     setPosts([parsed.data[0], ...posts]);
     const map = { ...feedMetric };
@@ -63,45 +64,39 @@ console.log(parsed);
     <div className="share">
       <div className="shareWrapper">
         <div className="shareTop">
-          <img
-            className="shareProfileImg"
-            src={logo}
-            alt="Profile Pic"
-          />
-          <div>
+          <img className="shareProfileImg" src={logo} alt="Profile Pic" />
           <input
             value={title}
-            placeholder={`Report Instances of noise pollution ${user.username}?`}
+            placeholder={`Title`}
             className="shareInput"
             onChange={handleTitleChange}
-          /></div>
-          <div> <input
+          />
+          <input
             value={type}
-          
+            placeholder={`Type`}
             className="shareInput"
             onChange={handleTypeChange}
-          /></div>
-           <div><input
+          />
+          <textarea
             value={input}
-        
+            placeholder={`Tell us more, ${user.username}...`}
             className="shareInput"
             onChange={handleInputChange}
-          /></div>
+          />
         </div>
         <hr className="shareHr" />
         <div className="shareBottom">
           <div className="shareOptions">
             <div className="shareOption">
               <div>
-               
+                <IconButton aria-label="add-image">
+                  <BiImageAdd className="shareIcon" />
+                </IconButton>
               </div>
             </div>
           </div>
-          <IconButton aria-label="delete" className="addPost">
-            <IoMdSend
-              className="shareButton"
-              onClick={createPost}
-            />
+          <IconButton aria-label="send-post" className="addPost">
+            <IoMdSend className="shareButton" onClick={createPost} />
           </IconButton>
         </div>
       </div>

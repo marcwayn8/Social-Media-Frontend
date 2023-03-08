@@ -3,7 +3,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderTwoToneIcon from "@mui/icons-material/FavoriteBorderTwoTone";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-import { DateTime } from "luxon";
+
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import AppContext from "../../context/appContext.jsx";
@@ -112,7 +112,7 @@ export default function MyPosts({ userInfo }) {
   
     </p>
     </div>
-    {post.user_id === userInfo.id && (
+    {post.user_id = userInfo.id && (
     <IconButton className="my-post-delete-btn" onClick={handleDelete}>
     <DeleteIcon />
     </IconButton>

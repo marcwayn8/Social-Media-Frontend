@@ -5,16 +5,8 @@ import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import NewCommentModal from './newCommentModal';
 import {
-    ChatBubbleLeftEllipsisIcon,
-    CodeBracketIcon,
-    EllipsisVerticalIcon,
-    EyeIcon,
-    FlagIcon,
-    HandThumbUpIcon,
-    MagnifyingGlassIcon,
-    PlusIcon,
-    ShareIcon,
-    StarIcon,
+    ChatBubbleLeftEllipsisIcon
+   
 } from '@heroicons/react/20/solid'
 
 const style = {
@@ -23,7 +15,7 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 400,
-    bgcolor: 'background.paper',
+    bgcolor: 'transparent',
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,

@@ -91,9 +91,10 @@ export default function Post({ post, setPosts, userInfo }) {
           </div>
         </div>
         <div className="postCenter">
-          <span className="postText">{post.post_description}</span>
+         
           <h2 >{post.post_title}  </h2>
-          <h3>{post.post_type} </h3> 
+         <centre><h3>{post.post_type} </h3> </centre> 
+         <span className="postText">{post.post_description}</span>
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
@@ -134,13 +135,13 @@ export default function Post({ post, setPosts, userInfo }) {
               {feedMetric[post.postId] &&
                 feedMetric[post.postId][0] === 0 && (
                   <span className="postCommentText">
-                 <span className="inline-flex items-center text-sm">
+             <centre><span className="inline-flex items-center text-sm" >
                               <button type="button" className="inline-flex space-x-2 text-gray-400 hover:text-gray-500">
                                 <CommentModal className="h-5 w-5" aria-hidden="true" postId={post.postId}/>
                                 <span className="font-medium text-gray-900"></span>
                                 <span className="sr-only">likes</span>
                               </button>
-                            </span>
+                            </span></centre>
                             <span className="inline-flex items-center text-sm">
                               <button type="button" className="inline-flex space-x-2 text-gray-400 hover:text-gray-500">
 

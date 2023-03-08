@@ -13,7 +13,7 @@ export default function Feed({ userInfo }) {
     <div className="feed">
       <div className="feedWrapper">
         <Share post={posts} setPosts={setPosts} userInfo={user}/>
-        {posts.filter(val=> val.post_type.includes(searchTerm)).map(p => 
+        {posts.map(p => 
           <Post key={p.postId} post={p} posts={posts} setPosts={setPosts} userInfo={user} />
         )}
       </div>

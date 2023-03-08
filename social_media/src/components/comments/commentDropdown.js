@@ -19,9 +19,9 @@ import {
 
 const button = {
     // backgroundColor: "#5F91C3",
-    height: "50",
-    width: "120",
-    color: "black",
+    height: "30",
+    width: "60",
+    color: "transparent",
     fontWeight:"40",
     marginRight: "0",
     borderColor: "transparent"

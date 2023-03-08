@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import AppContext from "./context/appContext";
-import Chat from "./pages/chats/Chats.jsx";
+
 import Home from "./pages/home/Home.jsx";
 import Login from "./pages/login/Login.jsx";
 import Profile from "./pages/profile/Profile.jsx";
@@ -16,8 +16,8 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/landing" element={<Home />} />
-        <Route path="/home" element={<Chat />} />
+     
+        <Route path="/home" element={<Home />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="/login" element={<Login />} />

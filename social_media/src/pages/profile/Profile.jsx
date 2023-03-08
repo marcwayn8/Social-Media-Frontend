@@ -1,14 +1,14 @@
-import AppBar from '@mui/material/AppBar'
-import Box from '@mui/material/Box'
-import Toolbar from '@mui/material/Toolbar'
-import Typography from '@mui/material/Typography'
-import Button from '@mui/material/Button'
+
 import './profile.css'
 import { Link, useNavigate } from 'react-router-dom'
+import Topbar from "../../components/topbar/Topbar.jsx";
+import { useContext } from 'react'
+import AppContext from '../../context/appContext'
 
 
 export default function Profile() {
-  const navigate = useNavigate()
+  const {  user } = useContext(AppContext);
+
     const background = {
         backgroundColor: 'white',
         display:"flex",
@@ -16,30 +16,7 @@ export default function Profile() {
       }
     return (
         <>
-         <Box sx={{ flexGrow: 1 }} style={{
-        display: "flex",
-      backgroundColor:"white"
-
-      }}>
-      <AppBar position='static'>
-        <Toolbar style={{
-          display: "flex",
-          margin: "20px",
-          height: "70px",
-          position: "relative",
-          top: "0px",
-          backgroundColor:"white"
-
-        }}>
-
-          <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-           
-          </Typography>
-          <Button color='inherit' onClick={() => { navigate('/profile') }}>Profile</Button>
-          <Button color='inherit' onClick={() => { navigate('/signup') }}>Sign Up</Button>
-        </Toolbar>
-      </AppBar>
-    </Box>
+     
       <div className="profile "style={background}>
     <form className="space-y-8 divide-y divide-gray-200">
       <div className="space-y-8 divide-y divide-gray-200">
@@ -54,7 +31,7 @@ export default function Profile() {
           <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
             <div className="sm:col-span-4">
               <label htmlFor="username" className="block text-sm font-medium text-gray-700">
-                Username
+            {user.username}
               </label>
 
             </div>
@@ -95,9 +72,7 @@ export default function Profile() {
             </div>
 
             <div className="sm:col-span-3">
-              <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
-                Username
-              </label>
+            
               <div className="mt-1">
                 <input
                   type="text"
@@ -250,38 +225,7 @@ export default function Profile() {
                 </div>
               </div>
             </fieldset>
-            <fieldset className="mt-6">
-             
-              <div className="mt-4 space-y-4">
-                <div className="flex items-center">
-                  <input
-                    id="push-everything"
-                    name="push-notifications"
-                    type="radio"
-                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                  />
-              
-                </div>
-                <div className="flex items-center">
-                  <input
-                    id="push-email"
-                    name="push-notifications"
-                    type="radio"
-                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                  />
-                  
-                </div>
-                <div className="flex items-center">
-                  <input
-                    id="push-nothing"
-                    name="push-notifications"
-                    type="radio"
-                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                  />
-              
-                </div>
-              </div>
-            </fieldset>
+           
           </div>
         </div>
       </div>

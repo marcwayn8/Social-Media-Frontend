@@ -14,7 +14,7 @@ export default function Home() {
   useEffect(() => {
     fetch("http://localhost:4005/post")
       .then((response) => response.json())
-      .then((data) => {setPosts(data); console.log(data)})
+      .then((data) => {setPosts(data)})
 ;
   }, []);
 
