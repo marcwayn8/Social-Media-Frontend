@@ -9,19 +9,16 @@ import Profile from "./pages/profile/Profile.jsx";
 import Signup from "./pages/signup/Signup.jsx";
 import SeverityMeterComponent from "./components/complaint form/complaint";
 
-
-
-
+import LandingPage from "./pages/landingPage/landingPage";
 
 function App() {
-  const { isAuth } = useContext(AppContext);
 
   return (
     <div>
       <Routes>
         <Route path="/landing" element={<Home />} />
         <Route path="/home" element={<Chat />} />
-       
+        <Route path="/" element={<LandingPage />} />
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/main" element={<SeverityMeterComponent />} />

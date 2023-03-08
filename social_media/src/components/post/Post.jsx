@@ -20,37 +20,6 @@ export default function Post({ post, setPosts, userInfo }) {
   const [reply, setReply] = useState("");
   const [showComment, setShowComment] = useState(false);
 
-  // const handleComments = async (e) => {
-  //   setShowComment(!showComment);
-  //   await fetch(`http://localhost:4005/post${post.post_id}/comments`)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setComments(data.data);
-  //     });
-  // };
-
-  // const likeHandler = async () => {
-  //   if (!isLiked) {
-  //     feedMetric[post.post_id][1] += 1;
-  //     await fetch(`http://localhost:4005/post/updateLikes`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ user_id: user.user_id }),
-  //     });
-  //   } else {
-  //     feedMetric[post.postId][1] -= 1;
-  //     await fetch(`http://localhost:4005/post/updateLikes`, {
-  //       method: "DELETE",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ user_id: user.user_id }),
-  //     });
-  //   }
-  //   setIsLiked(!isLiked);
-  // };
 
   const handleDelete = async (e) => {
     try {

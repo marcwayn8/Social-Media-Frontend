@@ -37,7 +37,7 @@ export default function Signup() {
       body: JSON.stringify(userInfo),
     });
     const authen = await auth.json();
-
+console.log(authen)
     if(authen.isAvailable){
       const result = await fetch("http://localhost:4005/new_user", {
       method: "POST",

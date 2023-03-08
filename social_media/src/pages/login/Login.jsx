@@ -53,15 +53,12 @@ export default function Login({ setAuth }) {
       window.localStorage.setItem("token", data.token);
       window.localStorage.setItem('currUser', JSON.stringify(data.user));
       setIsAuth(data.isAuth);
+          if(isAuth){
+    navigate(`/home`);}
       setUser(data.user);
     
     }
 
- 
-   
-    if(isAuth){
-
-    navigate(`/home`);}
       }
       
     

@@ -5,10 +5,11 @@ import { IoMdSend } from "react-icons/io";
 import ImageUploading from "react-images-uploading";
 import AppContext from "../../context/appContext";
 import "./share.css";
+import logo from './img.jpg';
 
 export default function Share() {
   const { user, setPosts, posts, feedMetric, setFeedMetric } = useContext(AppContext);
-  const [image, setImage] = useState("");
+ 
   const [type, setType] = useState([]);
   const [input, setInput] = useState("");
   const [title, setTitle] = useState("");
@@ -16,7 +17,9 @@ export default function Share() {
   async function createPost(e) {
     e.preventDefault();
     if (input === "") return;
-    if (image === "") setImage("");
+    if (type === "") return;
+    if (title === "") return;
+ 
 
     const postInfo = {
       user_id: user.id,
@@ -34,6 +37,8 @@ export default function Share() {
     });
     const parsed = await result.json();
     parsed.data[0].username = user.username;
+
+console.log(parsed);
 
     setPosts([parsed.data[0], ...posts]);
     const map = { ...feedMetric };
@@ -60,27 +65,28 @@ export default function Share() {
         <div className="shareTop">
           <img
             className="shareProfileImg"
-            // src={user.profile_pic}
+            src={logo}
             alt="Profile Pic"
           />
+          <div>
           <input
             value={title}
-            placeholder={`What's on your mind ${user.username}?`}
+            placeholder={`Report Instances of noise pollution ${user.username}?`}
             className="shareInput"
             onChange={handleTitleChange}
-          />
-           <input
+          /></div>
+          <div> <input
             value={type}
           
             className="shareInput"
             onChange={handleTypeChange}
-          />
-           <input
+          /></div>
+           <div><input
             value={input}
         
             className="shareInput"
             onChange={handleInputChange}
-          />
+          /></div>
         </div>
         <hr className="shareHr" />
         <div className="shareBottom">

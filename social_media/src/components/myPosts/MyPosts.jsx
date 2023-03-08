@@ -25,8 +25,9 @@ export default function MyPosts({ userInfo }) {
     const fetchPostData = async () => {
       const response = await fetch(`http://localhost:4005/post/${postId}`);
       const data = await response.json();
-      setPost(data.data);
-      setComments(data.data.comments);
+      setPost(data);
+      console.log(data)
+      setComments(data.comments);
     };
     fetchPostData();
   }, [postId]);

@@ -7,11 +7,11 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useContext } from 'react';
 import AppContext from '../../context/appContext';
 import './complaint.css'
-
-
+import logo from './img.jpg'
 
 
 export default function SeverityMeterComponent(){
+  const { setUser, setIsAuth, isAuth,user } = useContext(AppContext);
 const MapContainer = React.memo(() => {
   const mapRef = useRef(null);
   const [map, setMap] = useState(null);
@@ -106,19 +106,11 @@ const MapContainer = React.memo(() => {
       });
   }
 
-
-  const currUser = localStorage.getItem('currUser')
-  console.log(currUser)
-
-  
-  
-
-
 return (
     <div className="severity-meter-component">
       <div className="user-profile">
-        <div className="welcome-message">Welcome,{currUser.username}</div>
-        <img src="https://via.placeholder.com/50x50" alt="User profile image" />
+        <div className="welcome-message">Welcome,{user.username}</div>
+        <img src={logo} alt="User profile image" />
       </div>
       <div className="map-container">
   <div ref={mapRef} className="map">{MapContainer}</div>

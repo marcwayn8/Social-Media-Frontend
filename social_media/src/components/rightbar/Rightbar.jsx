@@ -63,36 +63,10 @@ export default function Rightbar({ profile, userInfo }) {
       if (newUserInfo.bio === "") newUserInfo.bio = "Software Engineer";
 
 
-      
-      // setUser({
-      //   ...userInfo,
-      //   ...newUserInfo,
-      // });
-      setIntro("");
-      setCity("");
-      setCountry("");
-      setBio("");
+    
     };
 
-    // const handleFriend = async (e) => {
-    //   e.preventDefault();
-    //   const data = {
-    //     user_id: user.user_id,
-    //     friend_two: userInfo.user_id,
-    //   };
-    //   try {
-    //     await fetch(`http://localhost:4005/users/${user.id}`, {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify(data),
-    //     })
-    //     setFriends([...friends, userInfo])
-    //   } catch (err) {
-    //     console.log(err.message);
-    //   }
-    // };
+ 
     
     return (
       <>
@@ -245,11 +219,5 @@ export default function Rightbar({ profile, userInfo }) {
       </>
     );
   };
-  return (
-    <div className="rightbar">
-      <div className="rightbarWrapper">
-        {profile ? <ProfileRightbar /> : <HomeRightbar />}
-      </div>
-    </div>
-  );
+ 
 }

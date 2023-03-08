@@ -6,8 +6,6 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-
-
 export default function NewCommentModal({ postId }) {
     const [content, setContent] = useState('')
       const { feedMetric, user, setFeedMetric } = useContext(AppContext);
@@ -16,7 +14,7 @@ export default function NewCommentModal({ postId }) {
         const userId = user.id
         console.log(postId, userId)
         console.log(content)
-        fetch(`http://localhost:4005/comment`, {
+        fetch(`http://localhost:4005/comment/${postId}`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"

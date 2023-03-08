@@ -32,8 +32,7 @@ const style = {
 const button = {
     backgroundColor: "transparent",
     height: "10",
-    width: "10",
-    color: "#1976D2"
+    width: "10"
 }
 
 function CommentModal({ postId }) {

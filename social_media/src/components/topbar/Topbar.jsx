@@ -15,8 +15,7 @@ import logo from "../../assets/newLogo.png";
 
 
 export default function Topbar() {
-  const { user, setIsAuth, setUser, theme, toggleTheme } =
-    useContext(AppContext);
+  const { user, setIsAuth, setUser, theme, toggleTheme, searchTerm, setSearchTerm } = useContext(AppContext);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -33,7 +32,7 @@ export default function Topbar() {
     <div className="topbarContainer">
       <div className="topbarLeft">
         <span className="logo"   onClick={(e) => navigate("/home")}>
-          No Noise NYC <img src={logo} alt="logo" style={{
+         <img src={logo} alt="logo" style={{
               width: "150px",
               marginLeft: "25px"
             }}></img>
@@ -46,6 +45,8 @@ export default function Topbar() {
           <input
             placeholder="Search for recent posts / complaints"
             className="searchInput"
+            value={searchTerm}
+                        onChange={(e)=>setSearchTerm(e.target.value)}
           />
         </div>
       </div>
@@ -128,7 +129,13 @@ export default function Topbar() {
                 navigate("/login");
               }}
             >
-              <ListItemIcon>
+              <ListItemIcon onClick={() => {
+                handleClose();
+                setUser({});
+                setIsAuth(false);
+                window.localStorage.clear();
+                navigate("/login");
+              }}>
                 <Logout fontSize="small" />
               </ListItemIcon>
               Logout
