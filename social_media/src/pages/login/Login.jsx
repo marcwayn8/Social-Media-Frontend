@@ -54,8 +54,9 @@ export default function Login({ setAuth }) {
       window.localStorage.setItem('currUser', JSON.stringify(data.user));
       setIsAuth(data.isAuth);
           if(isAuth){
-    navigate(`/home`);}
-      setUser(data.user);
+    navigate(`/home`);
+      setUser(data.user)}
+      window.localStorage.clear();
     
     }
 

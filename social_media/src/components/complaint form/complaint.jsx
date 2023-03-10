@@ -5,6 +5,8 @@ import { useContext } from 'react';
 import AppContext from '../../context/appContext'
 import logo from './img.jpg'
 import Topbar from "../../components/topbar/Topbar.jsx";
+import ComplaintModal from './complaintModal';
+import { Menu, Transition } from '@headlessui/react'
 
 
 export default function SeverityMeterComponent() {
@@ -68,16 +70,7 @@ export default function SeverityMeterComponent() {
         console.error(`Error submitting complaint: ${error}`);
       });
   }
-  function handleInputChange(event) {
-    const target = event.target;
-    const name = target.name;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    setComplaint({
-      ...complaint,
-      [name]: value,
-    });
-  }
-
+  
   function fetchLatestComplaints() {
     axios.get('http://localhost:4005/complaints')
       .then(response => {
@@ -89,6 +82,17 @@ export default function SeverityMeterComponent() {
         console.error(`Error getting latest complaints: ${error}`);
       });
   }
+
+  const button = {
+    backgroundColor: "transparent",
+    height: "30",
+    width: "60",
+    color: "black",
+    fontWeight:"40",
+    marginRight: "0",
+    borderColor: "transparent"
+}
+
 return (
   <div>
   <Topbar/>
@@ -101,30 +105,22 @@ return (
   <div ref={mapRef} className="map"></div>
 </div>
 
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Title:</label>
-          <input type="text" name="title" value={complaint.title} onChange={handleInputChange} className="form-control" />
-        </div>
-        <div className="form-group">
-          <label>Description:</label>
-          <textarea name="description" value={complaint.description} onChange={handleInputChange} className="form-control"></textarea>
-        </div>
-        <div className="form-group">
-  <label>Zip code:</label>
-  <input type="text" name="zipCode" value={complaint.zipCode} onChange={handleInputChange} className="form-control" />
-</div>
+<Menu.Button style={button} >∨
 
-        <div className="form-group">
-          <label>Severity:</label>
-          <select name="severity" value={complaint.severity} className="form-control">
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-          </select>
-        </div>
-        <button type="submit" className="btn btn-primary">Submit</button>
-      </form>
+                </Menu.Button>
+<Transition
+    as={Fragment}
+    enter="transition ease-out duration-100"
+    enterFrom="transform opacity-0 scale-95"
+    enterTo="transform opacity-100 scale-100"
+    leave="transition ease-in duration-75"
+    leaveFrom="transform opacity-100 scale-100"
+    leaveTo="transform opacity-0 scale-95"
+>
+    <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <ComplaintModal/>
+    </Menu.Items>
+</Transition>
     </div>
     </div>
   );

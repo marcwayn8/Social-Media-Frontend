@@ -28,8 +28,6 @@ function BasicModal(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-
   return (
     <div>
       <Button style={button} onClick={handleOpen}>Post</Button>

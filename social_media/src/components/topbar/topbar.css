@@ -100,13 +100,7 @@
   outline: none;
 }
 
-.topbarRight {
-  flex: 4;
-  display: flex;
-  align-items: center;
-  justify-content: end;
-  color: white;
-}
+
 
 .topbarLink {
   margin-right: 10px;

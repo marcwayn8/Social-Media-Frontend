@@ -16,7 +16,7 @@ export default function Profile() {
       }
     return (
         <>
-     
+     <div><Topbar/>
       <div className="profile "style={background}>
     <form className="space-y-8 divide-y divide-gray-200">
       <div className="space-y-8 divide-y divide-gray-200">
@@ -237,7 +237,7 @@ export default function Profile() {
       </div>
     </form>
   </div>
-
+  </div>
 
         </>
     )}

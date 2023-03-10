@@ -5,12 +5,12 @@ export default function CommentList({ postId }) {
 
 
   const [data, setData] = useState([])
-  const [user, setUser] = useState("")
+
 
   useEffect(() => {
     fetch(`http://localhost:4005/comment/${postId}`)
       .then(res => res.json())
-      .then(json => setData(json))
+      .then(json => console.log(json))
   }, []);
 
 
@@ -19,9 +19,9 @@ export default function CommentList({ postId }) {
     <ul  >
       {
           <li className="py-4">
-            {data.commentDescription}
+          hi
             <br></br>
-            - {data.likes}
+            - 
           </li>
       }
     </ul>

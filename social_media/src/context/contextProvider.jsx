@@ -19,7 +19,7 @@ const ContextProvider = (props) => {
     async function getFeed() {
       const res = await fetch("http://localhost:4005/post");
       const data = await res.json();
-      console.log(data)
+
       setFeed(data);
       setPosts(data)
     }

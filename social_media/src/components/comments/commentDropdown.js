@@ -18,10 +18,10 @@ import {
 
 
 const button = {
-    // backgroundColor: "#5F91C3",
+    backgroundColor: "transparent",
     height: "30",
     width: "60",
-    color: "transparent",
+    color: "black",
     fontWeight:"40",
     marginRight: "0",
     borderColor: "transparent"

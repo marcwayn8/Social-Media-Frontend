@@ -10,7 +10,7 @@ export default function NewCommentModal({ postId }) {
     const [content, setContent] = useState('')
       const {  user } = useContext(AppContext);
 
-    function createComment(postId) {
+    function createComment() {
         const userId = user.id
         console.log(postId, userId)
         console.log(content)

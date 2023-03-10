@@ -22,7 +22,7 @@ if (type === "") return;
 if (title === "") return;
 
     const postInfo = {
-      userId: user.id.toString(),
+      userId: user.id,
       post_description: input,
       post_title: title,
       post_type: type,

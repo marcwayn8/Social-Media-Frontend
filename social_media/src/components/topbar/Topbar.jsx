@@ -12,6 +12,7 @@ import { Link, useNavigate } from "react-router-dom";
 import AppContext from "../../context/appContext";
 import "./topbar.css";
 import logo from "../../assets/newLogo.png";
+import profileImage from "./img.jpg"
 
 
 export default function Topbar() {
@@ -72,7 +73,7 @@ export default function Topbar() {
                 aria-haspopup="true"
                 aria-expanded={open ? "true" : undefined}
               >
-                <img alt="" className="topbarImg" />
+                <img src = {profileImage} alt="" className="topbarImg" />
               </IconButton>
             </Tooltip>
           </Box>

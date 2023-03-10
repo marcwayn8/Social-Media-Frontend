@@ -13,13 +13,24 @@ import CommentDropDown from "../comments/commentDropdown.js";
 import "./post.css";
 import img from './img.jpg'
 
-export default function Post({ post, setPosts, userInfo }) {
+export default function Post({ key,post, setPosts, userInfo }) {
   const { posts, feedMetric, setFeedMetric, user } = useContext(AppContext);
   const [isLiked, setIsLiked] = useState(false);
   const [comments, setComments] = useState([]);
   const [reply, setReply] = useState("");
   const [showComment, setShowComment] = useState(false);
+  const [current,setCurrent] = useState("")
 
+console.log(post)
+console.log(post.postId)
+
+async function getUser(){
+    const res = await fetch(`http://localhost:4005/users/${post.user_id}`);
+    const data = await res.json();
+    console.log(data)
+    setCurrent(data.username);}
+   
+    getUser()
 
   const handleDelete = async (e) => {
     try {
@@ -73,7 +84,7 @@ export default function Post({ post, setPosts, userInfo }) {
             <Link to={`/profile/${user.id}`}>
               <img className="postProfileImg" id="logo" src={img} alt="" />
             </Link>
-            <span className="postUsername">{user.username}</span>
+            <span className="postUsername">{current}</span>
             <span className="postDate">
               {DateTime.fromISO().toRelative()}
             </span>
@@ -93,7 +104,8 @@ export default function Post({ post, setPosts, userInfo }) {
         <div className="postCenter">
          
           <h2 >{post.post_title}  </h2>
-         <centre><h3>{post.post_type} </h3> </centre> 
+         <center><h3>{post.post_type} </h3> </center> 
+         
          <span className="postText">{post.post_description}</span>
         </div>
         <div className="postBottom">
@@ -139,16 +151,12 @@ export default function Post({ post, setPosts, userInfo }) {
                               <button type="button" className="inline-flex space-x-2 text-gray-400 hover:text-gray-500">
                                 <CommentModal className="h-5 w-5" aria-hidden="true" postId={post.postId}/>
                                 <span className="font-medium text-gray-900"></span>
-                                <span className="sr-only">likes</span>
+                                <span className="sr-only">likes{post.likes}</span>
                               </button>
                             </span></centre>
                             <span className="inline-flex items-center text-sm">
-                              <button type="button" className="inline-flex space-x-2 text-gray-400 hover:text-gray-500">
-
-                                <span className="font-medium text-gray-900"></span>
-                                <span className="sr-only">likes</span>
-                              </button>
-                              <CommentDropDown className="h-5 w-5" aria-hidden="true" postId={post.postId}/>
+           
+                              <CommentDropDown  postId={post.postId} className="h-5 w-5" aria-hidden="true" />
                             </span>
                   </span>
                 )}
