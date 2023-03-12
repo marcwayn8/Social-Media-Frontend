@@ -1,6 +1,7 @@
 import { styled, alpha } from '@mui/material/styles';
 import { Grid, Stack, Container, Typography, Button, Box } from '@mui/material';
 import logo from './landing.jpeg'
+import React from 'react';
 import { NavLink, useNavigate } from "react-router-dom";
 // components
 

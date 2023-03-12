@@ -11,6 +11,7 @@ import { DateTime } from "luxon";
 import { useContext } from "react";
 import AppContext from "../../context/appContext";
 import "./comments.css";
+import React from 'react';
 
 export default function Comments({ allComments, aComment, setComments, post }) {
   const { user, setFeedMetric, feedMetric } = useContext(AppContext)

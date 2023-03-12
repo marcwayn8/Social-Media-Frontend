@@ -6,6 +6,7 @@ import Sidebar from "../../components/sidebar/Sidebar.jsx";
 import Topbar from "../../components/topbar/Topbar.jsx";
 import AppContext from "../../context/appContext.jsx";
 import "./home.css";
+import React from 'react';
 
 
 export default function Home() {

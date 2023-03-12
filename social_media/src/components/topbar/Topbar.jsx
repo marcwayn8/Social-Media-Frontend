@@ -13,6 +13,7 @@ import AppContext from "../../context/appContext";
 import "./topbar.css";
 import logo from "../../assets/newLogo.png";
 import profileImage from "./img.jpg"
+import React from 'react';
 
 
 export default function Topbar() {

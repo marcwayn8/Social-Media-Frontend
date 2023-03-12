@@ -12,6 +12,7 @@ import CommentModal from "../comments/commentModal.js";
 import CommentDropDown from "../comments/commentDropdown.js";
 import "./post.css";
 import img from './img.jpg'
+import React from 'react';
 
 export default function Post({ key,post, setPosts, userInfo }) {
   const { posts, feedMetric, setFeedMetric, user } = useContext(AppContext);

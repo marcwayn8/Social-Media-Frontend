@@ -5,6 +5,7 @@ import { IoMdSend } from "react-icons/io";
 import AppContext from "../../context/appContext";
 import "./share.css";
 import logo from "./img.jpg";
+import React from 'react';
 
 export default function Share() {
 const { user, setPosts, posts, feedMetric, setFeedMetric } = useContext(

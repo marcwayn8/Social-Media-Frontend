@@ -9,6 +9,7 @@ import { BiWorld } from "react-icons/bi";
 import AppContext from "../../context/appContext";
 import "./rightbar.css";
 import noNoise from './noNooise.png'
+import React from 'react';
 
 export default function Rightbar({ profile, userInfo }) {
   const [friends, setFriends] = useState([]);
