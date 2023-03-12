@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import AppContext from "../../context/appContext";
 import React from 'react';
 import ComplaintModal from "../complaint form/complaintModal";
+import logo from './img.jpg'
 
 import { Menu, Transition } from '@headlessui/react'
 
@@ -14,11 +15,22 @@ export default function Sidebar() {
   const { user } = useContext(AppContext);
 
   const navigate = useNavigate();
+  const button = {
+    backgroundColor: "black",
+    height: "10",
+    width: "10"
+}
+
   
   return (
     <div className="sidebar">
       <div className="sidebarWrapper">
+      <div className="user-profile">
+        <div className="welcome-message">Welcome,{user.username}</div>
+        <img src={logo} alt="User profile image" />
+      </div>
         <ul className="sidebarList">
+
           <li className="sidebarListItem">
             <HelpOutline className="sidebarIcon" />
             <span className="sidebarListItemText" >About Us</span>
