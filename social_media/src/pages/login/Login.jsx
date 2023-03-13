@@ -32,8 +32,6 @@ export default function Login({ setAuth }) {
       email,
       password,
     };
- 
-    
     loginUser()
 
     async function loginUser() {
@@ -61,11 +59,8 @@ export default function Login({ setAuth }) {
       window.localStorage.clear();
     
     }
-
       }
       
-    
-  
   function Copyright(props) {
     return (
       <Typography variant="body2" color="text.secondary" align="center" {...props}>

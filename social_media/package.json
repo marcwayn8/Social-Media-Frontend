@@ -1,43 +1,65 @@
 {
-  "name": "social_media",
-  "version": "0.1.0",
-  "private": true,
+  "name": "",
+  "version": "1.0.0",
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "postcss.config.js",
+  "scripts": {
+    "start": "nodemon --exec babel-node src/app.js",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "run": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/techview-org/techView_FrontEnd-Repository.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/techview-org/techView_FrontEnd-Repository/issues"
+  },
   "dependencies": {
     "@ant-design/icons": "^4.8.0",
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.0",
+    "@babel/node": "^7.20.7",
+    "@babel/preset-env": "^7.20.2",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@headlessui/react": "^1.7.5",
     "@heroicons/react": "^2.0.13",
     "@iconscout/react-unicons": "^1.1.6",
     "@material-ui/core": "^4.12.4",
-    "@mui/icons-material": "^5.8.4",
-    "@mui/material": "^5.8.5",
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.3.0",
+    "@mui/icons-material": "^5.11.0",
+    "@mui/material": "^5.10.16",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.3.4",
-    "bootstrap": "^5.2.3",
     "leaflet": "^1.9.3",
     "leaflet.heat": "^0.2.0",
     "luxon": "^2.4.0",
+    "query-string": "^7.1.3",
+    "querystring": "^0.2.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.4.0",
+    "react-chat-engine": "^1.11.28",
     "react-dom": "^18.2.0",
+    "react-emoji": "^0.5.0",
+    "react-file-base64": "^1.0.3",
     "react-icons": "^4.4.0",
-    "react-images-uploading": "^3.1.6",
-    "react-router-dom": "^6.3.0",
-    "react-scripts": "^2.1.3",
-    "socket.io-client": "^4.5.1",
+    "react-redux": "^8.0.5",
+    "react-responsive-cards": "^3.1.1",
+    "react-router-dom": "^6.4.3",
+    "react-scripts": "5.0.1",
+    "react-scroll-to-bottom": "^4.2.0",
+    "redux": "^4.2.0",
+    "redux-thunk": "^2.4.2",
+    "socket.io": "^4.5.4",
+    "socket.io-client": "^4.5.4",
+    "styled-components": "^5.3.6",
     "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "react-scripts --openssl-legacy-provider start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "overrides": {
-    "autoprefixer": "10.4.5"
   },
   "eslintConfig": {
     "extends": [
@@ -56,5 +78,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.19",
+    "prettier": "^2.8.0",
+    "prettier-plugin-tailwindcss": "^0.2.0",
+    "tailwindcss": "^1.9.6"
   }
 }

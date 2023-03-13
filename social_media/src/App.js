@@ -1,12 +1,13 @@
-import {React, useContext } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
-import "./App.css";
-import AppContext from "./context/appContext";
+
+import { Route, Routes } from "react-router-dom";
+import './index.css'
+
 import Home from "./pages/home/Home.jsx";
 import Login from "./pages/login/Login.jsx";
 import Profile from "./pages/profile/Profile.jsx";
 import Signup from "./pages/signup/Signup.jsx";
 import SeverityMeterComponent from "./components/complaint form/complaint";
+import * as React from "react"
 
 import LandingPage from "./pages/landingPage/landingPage";
 

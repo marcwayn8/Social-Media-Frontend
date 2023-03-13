@@ -4,7 +4,6 @@ import Post from "../post/Post.jsx";
 import Share from "../share/Share.jsx";
 import "./feed.css";
 import React from "react";
-import Sidebar from "../sidebar/Sidebar";
 
 export default function Feed({ userInfo }) {
   const { user, setPosts, posts,searchTerm } = useContext(AppContext);
@@ -13,7 +12,6 @@ export default function Feed({ userInfo }) {
   return (
     <div className="feed">
       <div className="feedWrapper">
-        <Sidebar/>
         <Share post={posts} setPosts={setPosts} userInfo={user}/>
         {posts.map(p => 
           <Post key={p.postId} post={p} posts={posts} setPosts={setPosts} userInfo={user} />

@@ -1,5 +1,6 @@
-import { React, useState, useEffect } from "react";
+import {  useState, useEffect } from "react";
 import AppContext from "./appContext";
+import React from 'react'
 
 const ContextProvider = (props) => {
   const [user, setUser] = useState({});
